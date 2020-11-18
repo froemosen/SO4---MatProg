@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-funktion  = eval(input("Indtast din funktion: "))
 
 xAkseLen = int(input("Længde på x-aksen i begge retninger: "))
 plt.grid()
@@ -17,8 +16,11 @@ for value in range(xAkseLen*100*2):
 
 
 xTangent = float(input("Punkt på funktionen hvor du vil finde hældning: "))
-deltax = xTangent/10 #Start deltax
+deltax = xTangent*5 #Start deltax
 prevDeltax = deltax+1
+
+timeToPause = 0.5
+
 for execution in range(1000):
     deltax /= 2
 
@@ -29,20 +31,51 @@ for execution in range(1000):
 
     try:
         stigning = (y2-y1)/(x2-x1)
-        if prevDeltax-deltax < 10**(-16):
+        if prevDeltax-deltax < 10**(-16) and prevDeltax-deltax > 0:
+            print("a =", stigning)
+            break
+
+        elif prevDeltax-deltax > -(10**(-16)) and abs(prevDeltax)-abs(deltax) < 0:
             print("a =", stigning)
             break
     except:
         stigning = (y2-y1)/(x2-x1)
-        if prevDeltax-deltax < 10**(-8):
+        if prevDeltax-deltax < 10**(-8) and prevDeltax-deltax > 0:
+            print("a =", stigning)
+            break
+
+        elif prevDeltax-deltax > -(10**(-8)) and prevDeltax-deltax < 0:
             print("a =", stigning)
             break
     finally:
         stigning = (y2-y1)/(x2-x1)
-        if prevDeltax-deltax < 10**(-4):
+        if prevDeltax-deltax < 10**(-4) and prevDeltax-deltax > 0:
             print("a =", stigning)
             break
 
+        elif prevDeltax-deltax > -(10**(-4)) and prevDeltax-deltax < 0:
+            print("a =", stigning)
+            break
+
+    try:
+        line = tangent.pop(0)
+        line.remove()
+    except:
+        pass
+
+    b=(y1)-(stigning)*(x1)
+    bundTangentX = xAkseLen
+    topTangentX = -xAkseLen
+    bundTangentY = stigning*xAkseLen+b
+    topTangentY = stigning*-(xAkseLen)+b
+
+    tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
+
+    
+
+    timeToPause /= 1.1
+    plt.pause(timeToPause)
+    
     prevDeltax = deltax
 
 

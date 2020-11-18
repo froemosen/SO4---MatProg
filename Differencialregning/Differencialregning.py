@@ -15,8 +15,8 @@ for value in range(xAkseLen*100*2):
 
 
 xTangent = float(input("Punkt på funktionen hvor du vil finde hældning: "))
-deltax = xTangent/2 #Start deltax
-prevDeltax = 10**50
+deltax = xTangent/10 #Start deltax
+prevDeltax = xTangent+1
 for execution in range(1000):
     deltax /= 2
 
@@ -27,10 +27,11 @@ for execution in range(1000):
 
     stigning = (y2-y1)/(x2-x1)
 
-    plt.plot
-
-    if deltax-prevDeltax > 10**(-4):
+    test = prevDeltax-deltax
+    if prevDeltax-deltax > 10**(-8):
+        print("a =", stigning)
         break
+
     prevDeltax = deltax
 
 

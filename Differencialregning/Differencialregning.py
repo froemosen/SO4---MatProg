@@ -25,9 +25,11 @@ for execution in range(1000):
     x1 = xTangent
     x2 = xTangent+deltax
 
-    stigning = (y2-y1)/(x2-x1)
+    try:
+        stigning = (y2-y1)/(x2-x1)
+    except:
+        stigning = (y1-y2)/(x1-x2)
 
-    test = prevDeltax-deltax
     if prevDeltax-deltax > 10**(-8):
         print("a =", stigning)
         break

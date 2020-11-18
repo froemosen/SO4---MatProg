@@ -73,7 +73,7 @@ for execution in range(1000):
 
     
 
-    timeToPause /= 1.1
+    timeToPause /= 1.4
     plt.pause(timeToPause)
     
     prevDeltax = deltax

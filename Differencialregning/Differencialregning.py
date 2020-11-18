@@ -4,7 +4,7 @@ import sympy
 
 print("\n_______NU STARTER PROGRAM TIL DIFFENRENCIALREGNING_______\n")
 
-print("Guide til ligning:\n    Indtast ligning på en de måder som ses i eksempler herunder:\n        - Python-sprog: a*x**2+b\n        - Normal-sprog: ax^2+b\n        - Blanding: a*x^2+b\n")
+print("Guide til ligning:\n    Indtast ligning på en de måder som ses i eksempler herunder:    (Max 1 variabel!)\n        - Python-sprog: a*x**2+b\n        - Normal-sprog: ax^2+b\n        - Blanding: a*x^2+b\n")
 
 def decode():
     ligningString = ""

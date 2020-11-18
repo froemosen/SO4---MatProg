@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-xAkseLen = int(input("Længde på x-aksen: "))
+funktion  = eval(input("Indtast din funktion: "))
+
+xAkseLen = int(input("Længde på x-aksen i begge retninger: "))
 plt.grid()
 newx = -xAkseLen
 for value in range(xAkseLen*100*2):
@@ -16,7 +18,7 @@ for value in range(xAkseLen*100*2):
 
 xTangent = float(input("Punkt på funktionen hvor du vil finde hældning: "))
 deltax = xTangent/10 #Start deltax
-prevDeltax = xTangent+1
+prevDeltax = deltax+1
 for execution in range(1000):
     deltax /= 2
 
@@ -27,12 +29,19 @@ for execution in range(1000):
 
     try:
         stigning = (y2-y1)/(x2-x1)
+        if prevDeltax-deltax < 10**(-16):
+            print("a =", stigning)
+            break
     except:
-        stigning = (y1-y2)/(x1-x2)
-
-    if prevDeltax-deltax > 10**(-8):
-        print("a =", stigning)
-        break
+        stigning = (y2-y1)/(x2-x1)
+        if prevDeltax-deltax < 10**(-8):
+            print("a =", stigning)
+            break
+    finally:
+        stigning = (y2-y1)/(x2-x1)
+        if prevDeltax-deltax < 10**(-4):
+            print("a =", stigning)
+            break
 
     prevDeltax = deltax
 

@@ -18,6 +18,10 @@ def decode():
         
         if prevTegn.isdigit() and tegn.isalpha():
             prevTegn = "*"
+
+        elif prevTegn.isalpha() and tegn.isalpha():
+            prevTegn = "*"
+            
         else:
             prevTegn = ""
         
@@ -32,7 +36,7 @@ def decode():
     
 
 def printGraf(ligningReady):
-    xAkseLen = int(input("\nLængde på x-aksen i begge retninger: "))
+    xAkseLen = abs(int(input("\nLængde på x-aksen i begge retninger: ")))
     plt.grid()
     newx = -xAkseLen
     for value in range(xAkseLen*100*2):
@@ -50,7 +54,7 @@ def lavTangent(xAkseLen, ligningReady):
     prevDeltax = deltax+1
     timeToPause = 0.5
 
-    for execution in range(1000):
+    for execution in range(3000):
         deltax /= 2
 
         y1 = ligningReady.subs(dict(x=xTangent))
@@ -118,14 +122,3 @@ def lavTangent(xAkseLen, ligningReady):
 if __name__ == '__main__':
     decode()
     plt.show()
-"""
-plt.axis([0, 10, 0, 1])
-
-for i in range(100):
-    y = np.random.random()
-    x = np.random.random()
-    plt.scatter(x, y)
-    plt.pause(0.5)
-
-plt.show()
-"""

@@ -11,11 +11,12 @@ def decode():
     try:
         ligningString = ""
         prevTegn = ""
+        nextTegn = ""
+        nextNextTegn = ""
         noInList = 0
         cooldown = 0
         ligningList = list(input("Indtast ligning: "))
-        nextTegn = ""
-        nextNextTegn = ""
+
     
         for tegn in ligningList:
             try:
@@ -142,12 +143,10 @@ def lavTangent(xAkseLen, ligningReady):
             except:
                 pass
 
-            
             bundTangentX = xAkseLen
             topTangentX = -xAkseLen
             bundTangentY = stigning*xAkseLen+b
             topTangentY = stigning*-(xAkseLen)+b
-
             
             tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
             

@@ -21,8 +21,16 @@ class Differencial(page):
         text = tk.Label(self, text = "Skriv en ligning")
         entry = tk.Entry(self)
 
+        text2 = tk.Label(self, text = "Vælg en x-værdi")
+        entry2 = tk.Entry(self)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn")
+
         text.pack()
         entry.pack()
+        text2.pack()
+        entry2.pack()
+        btn_beregn.pack()
 
 
 class Intergral(page):

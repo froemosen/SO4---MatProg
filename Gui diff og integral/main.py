@@ -10,13 +10,13 @@ def OpenDifferencialWindow():
     DifferencialWindow = Toplevel(window)
     DifferencialWindow.title("Differencial Regning")
     DifferencialWindow.geometry("500x250")
-    Label(DifferencialWindow, text = Something)
+    Label(DifferencialWindow, text = "Something")
 
 def OpenIntergralWindow():
     IntergralWindow = Toplevel(window)
     IntergralWindow.title("Intergral Regning")
     IntergralWindow.geometry("500x250")
-    Label(IntergralWindow, text = Something)
+    Label(IntergralWindow, text = "Something")
 
 
 main_frame = tk.Frame(window)

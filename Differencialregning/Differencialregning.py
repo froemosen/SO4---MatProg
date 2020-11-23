@@ -28,22 +28,18 @@ def decode():
             if cooldown == 0:           
                 if tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "sin":
                     tegn = "sin"
-                    prevTegn = ""
                     cooldown = 2
 
                 elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "cos":
                     tegn = "cos"
-                    prevTegn = ""
                     cooldown = 2
                 
                 elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "tan":
                     tegn = "tan"
-                    prevTegn = ""
                     cooldown = 2
 
                 elif tegn.lower()+nextTegn.lower() == "pi":
                     tegn = "pi"
-                    prevTegn = ""
                     cooldown = 1
 
                 elif tegn == "^":
@@ -52,10 +48,10 @@ def decode():
                 
                 elif prevTegn != "*" and prevTegn != "**" and prevTegn != "" and prevTegn != "(" and prevTegn != "+" and prevTegn != "-" and prevTegn != "/" and tegn.isalpha():
                     prevTegn = "*"
-                
+
                 #elif prevTegn.isalpha() and tegn.isalpha():
                 #    prevTegn = "*"
-                
+
                 elif tegn.isalpha():
                     tegn = "x"
                     prevTegn = ""
@@ -91,7 +87,7 @@ def printGraf(ligningReady):
             oldfx = ligningReady.subs(dict(x=oldx))
             print("oldfx:",oldfx)
             newx = oldx+0.0125
-            newfx = ligningReady.subs(dict(x=newx)) 
+            newfx = ligningReady.subs(dict(x=newx))
             print("newfx:",newfx)
 
             if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje y-værdier fra
@@ -108,14 +104,14 @@ def printGraf(ligningReady):
 def lavTangent(xAkseLen, ligningReady):
     xTangent = float(input("\nPunkt på funktionen hvor du vil finde hældning: "))
     deltax = abs(xTangent)*5+1 #Start deltax
-    
+
     timeToPause = 0.7
 
     x1 = xTangent-deltax
     x2 = x1+deltax
     y1 = ligningReady.subs(dict(x=x1))
     y2 = ligningReady.subs(dict(x=x2))
-    
+
 
     stigning = (y2-y1)/(x2-x1)
     prevStigning = stigning+1
@@ -128,7 +124,7 @@ def lavTangent(xAkseLen, ligningReady):
             x2 = xTangent+deltax
             y1 = ligningReady.subs(dict(x=x1))
             y2 = ligningReady.subs(dict(x=x2))
-            
+
             stigning = (y2-y1)/(x2-x1)
             b=(y1)-(stigning)*(x1)
 
@@ -147,9 +143,9 @@ def lavTangent(xAkseLen, ligningReady):
             topTangentX = -xAkseLen
             bundTangentY = stigning*xAkseLen+b
             topTangentY = stigning*-(xAkseLen)+b
-            
+
             tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
-            
+
             timeToPause /= 2
             prevStigning = stigning
             prevB = b
@@ -157,7 +153,7 @@ def lavTangent(xAkseLen, ligningReady):
             plt.pause(timeToPause)
     except:
         print("\nHældningstal i punkt:  a =", prevStigning)
-        print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?  
+        print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
 if __name__ == '__main__':
     decode()

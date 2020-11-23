@@ -1,35 +1,58 @@
 import tkinter as tk
-from tkinter import *
-from tkinter.ttk import *
 
-window = Tk()
-# window.title("Diffrencial og Intergral")
-window.geometry("500x250")
+class page(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+    def show(self):
+        self.lift()
 
-def OpenDifferencialWindow():
-    DifferencialWindow = Toplevel(window)
-    DifferencialWindow.title("Differencial Regning")
-    DifferencialWindow.geometry("500x250")
-    Label(DifferencialWindow, text = Something)
+class MainMenu(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self, *args, **kwargs)
+        text = tk.Label(self, text = "Main Menu")
+        text.pack(side = "top", fill = "both", expand = True)
 
-def OpenIntergralWindow():
-    IntergralWindow = Toplevel(window)
-    IntergralWindow.title("Intergral Regning")
-    IntergralWindow.geometry("500x250")
-    Label(IntergralWindow, text = Something)
+class Differencial(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self, *args, **kwargs)
+        text = tk.Label(self, text = "Hello There")
+        text.pack(side = "top", fill = "both", expand = True)
 
+class Intergral(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self, *args, **kwargs)
+        text = tk.Label(self, text = "General Konobi!!!")
+        text.pack(side = "top", fill = "both", expand = True)
 
-main_frame = tk.Frame(window)
-Titel = Label(window, text = "Insert titel")
-Titel.pack()
+class MainFrame(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+        MainMenuWindow = MainMenu(self)
+        DifferencialWindow = Differencial(self)
+        IntergralWindow = Intergral(self)
 
-Differencial = tk.Button(window, text = "Differencialregning", command = OpenDifferencialWindow, height = 2, width = 15, padx = 50)
-Differencial.pack()
+        ButtonFrame = tk.Frame(self)
+        Box = tk.Frame(self)
+        ButtonFrame.pack(side = "top", fill = "x", expand= False)
+        Box.pack(side = "top", fill = "both", expand= True)
 
-Intergral = tk.Button(window, text = "Intergralregning", command = OpenIntergralWindow, height = 2, width = 15, padx = 50)
-Intergral.pack()
+        MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
-Indtastning = tk.Entry(window,width = 50)
-Indtastning.pack()
+        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift) 
+        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
 
-window.mainloop()
+        MainMenuButton.pack(side = "left")
+        DifferencialButton.pack(side = "left")
+        IntergralButton.pack(side = "left")
+
+        MainMenuWindow.show()
+        
+if __name__ == "__main__":
+    base = tk.Tk()
+    main = MainFrame(base)
+    main.pack(side = "top", fill = "both", expand = True)
+    base.wm_geometry("500x500")
+    base.mainloop()

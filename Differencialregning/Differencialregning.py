@@ -131,7 +131,7 @@ def lavTangent(xAkseLen, ligningReady):
             stigning = (y2-y1)/(x2-x1)
             b=(y1)-(stigning)*(x1)
 
-            if abs(abs(prevStigning)-abs(stigning)) < 10**(-9):
+            if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
                 print("\nHældningstal i punkt:  a =", stigning)
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x"+str(b)) #Nyt symbol i stedet for x?
                 break

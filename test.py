@@ -9,7 +9,7 @@ main_window.geometry('400x400')
 #----frame1----
 frame1=tk.Frame(main_window)
 tekst = tk.Label(frame1, text="halloe" )
-tekst.grid()
+tekst.grid(row=0)
 
 
 frame1.grid()

@@ -3,11 +3,7 @@ import matplotlib.pyplot as plt
 import sympy
 from sympy import sin, cos, tan, pi
 
-print("\n_______NU STARTER PROGRAM TIL DIFFENRENCIALREGNING_______\n")
-
-print("Guide til ligning:\n    Indtast ligning på en de måder som ses i eksempler herunder:    (Max 1 variabel!)\n        - Python-sprog: a*x**2+b\n        - Normal-sprog: ax^2+b\n        - Blanding: a*x^2+b\n")
-
-def decode():
+def decode(ligningRaw):
     try:
         ligningString = ""
         prevTegn = ""
@@ -15,9 +11,8 @@ def decode():
         nextNextTegn = ""
         noInList = 0
         cooldown = 0
-        ligningList = list(input("Indtast ligning: "))
+        ligningList = list(ligningRaw)
 
-    
         for tegn in ligningList:
             try:
                 nextTegn = ligningList[noInList+1]
@@ -66,41 +61,46 @@ def decode():
 
             noInList += 1
 
-        print("Ligning før omdannelse: "+ligningString)
+        #print("Ligning før omdannelse: "+ligningString)
         ligningReady = sympy.sympify(ligningString)
-        print("Ligningen i python-sprog: ", ligningReady)
-        printGraf(ligningReady)
+        #print("Ligningen i python-sprog: ", ligningReady)
+        return ligningReady
+        
 
     except:
-        print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")
+        return 0
+        pass #FJERN SENERE
+        #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")
     
 
-def printGraf(ligningReady):
-    xAkseLen = abs(int(input("\nLængde på x-aksen i begge retninger: ")))
+def printGraf(ligningReady, xAkselen):
+    xAkseLen = abs(int(xAkseLen))
     newx = -xAkseLen
-    plt.grid()
-    for value in range(xAkseLen*80*2):
+    #plt.grid() #VI VED IKKE OM VI STADIG BRUGER PLT
+    for value in range(xAkseLen*20*2):
         try:
             oldx = newx
             oldfx = ligningReady.subs(dict(x=oldx))
             print("oldfx:",oldfx)
-            newx = oldx+0.0125
+            newx = oldx+1/20
             newfx = ligningReady.subs(dict(x=newx))
             print("newfx:",newfx)
 
-            if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje y-værdier fra
-                plt.plot([oldx, newx], [oldfx, newfx])
+            if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje/lave y-værdier fra
+                #plt.plot([oldx, newx], [oldfx, newfx])
+                #Plot smthn her - idk how
+                pass
             else:
                 pass
         except:
             print("Lille fejl - y-værdi blev nok for høj, men fortsætter")
 
-    lavTangent(xAkseLen, ligningReady)
+    #lavTangent(xAkseLen, ligningReady)
         
         
     
-def lavTangent(xAkseLen, ligningReady):
-    xTangent = float(input("\nPunkt på funktionen hvor du vil finde hældning: "))
+def lavTangent(xAkseLen, ligningReady, xTangent):
+    xTangent = float(xTangent)
     deltax = abs(xTangent)*5+1 #Start deltax
 
     timeToPause = 0.7
@@ -142,17 +142,14 @@ def lavTangent(xAkseLen, ligningReady):
             bundTangentY = stigning*xAkseLen+b
             topTangentY = stigning*-(xAkseLen)+b
 
-            tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
+            #tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
 
             timeToPause /= 2
             prevStigning = stigning
             prevB = b
 
-            plt.pause(timeToPause)
+            #plt.pause(timeToPause)
     except:
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
-if __name__ == '__main__':
-    decode()
-    plt.show()

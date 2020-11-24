@@ -82,6 +82,7 @@ class MainFrame(tk.Frame):
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()
+"""
 class PageThree(tk.Frame):  #denne klasse af koden er hentet på: https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
 
     def __init__(self, parent, controller):
@@ -104,7 +105,7 @@ class PageThree(tk.Frame):  #denne klasse af koden er hentet på: https://python
         toolbar = NavigationToolbar2Tk(canvas, self)
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
+"""
 #Får lavet GUIen til koden       
 if __name__ == "__main__":
     base = tk.Tk()

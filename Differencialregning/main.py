@@ -13,7 +13,10 @@ class MainMenu(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
         text = tk.Label(self, text = "Main Menu")
-        text.pack(side = "top", fill = "both", expand = True)
+        text.pack(side = "top", fill = "both", expand = True,)
+
+        text2 = tk.Label(self, text = "intro til opgaven")
+        text2.pack(side = "top", fill = "both", expand = True)
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
@@ -106,7 +109,7 @@ class PageThree(tk.Frame):  #denne klasse af koden er hentet på: https://python
 #Får lavet GUIen til koden       
 if __name__ == "__main__":
     base = tk.Tk()
-    base.title("*Shrug*")
+    base.title("SO4 opgave")
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
     base.wm_geometry("500x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 

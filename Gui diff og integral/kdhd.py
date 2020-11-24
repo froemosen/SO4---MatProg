@@ -1,13 +1,12 @@
-from tkinter import *
+import tkinter as tk
 
-root =Tk()
+root =tk.Tk()
 
-canvas = Canvas(root, width = 100, height = 100,)
+canvas = tk.Canvas(root, width = 1204, height = 1280,)
+
+img = tk.PhotoImage(file = "Gui diff og integral/fodboldja.png")
+
+canvas.create_image(602,640, image=img)
 
 canvas.pack()
-
-img = PhotoImage(file = "C\Users\Lenovo\Documents\GitHub\SO4---MatProg\Gui diff og integral\fodboldja.png")
-
-canvas.create_image(20,20, anchor = NW, image=img)
-
-mainloop()
+tk.mainloop()

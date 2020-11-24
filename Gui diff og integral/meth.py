@@ -68,15 +68,15 @@ def decode(ligningRaw):
         
 
     except:
+        return 0
         pass #FJERN SENERE
         #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")
     
 
 def printGraf(ligningReady, xAkselen):
     xAkseLen = abs(int(xAkseLen))
-    precision = (1/xAkseLen)*100
     newx = -xAkseLen
-    #plt.grid()
+    #plt.grid() #VI VED IKKE OM VI STADIG BRUGER PLT
     for value in range(xAkseLen*20*2):
         try:
             oldx = newx
@@ -86,7 +86,7 @@ def printGraf(ligningReady, xAkselen):
             newfx = ligningReady.subs(dict(x=newx))
             print("newfx:",newfx)
 
-            if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje y-værdier fra
+            if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje/lave y-værdier fra
                 #plt.plot([oldx, newx], [oldfx, newfx])
                 #Plot smthn her - idk how
                 pass
@@ -95,12 +95,12 @@ def printGraf(ligningReady, xAkselen):
         except:
             print("Lille fejl - y-værdi blev nok for høj, men fortsætter")
 
-    lavTangent(xAkseLen, ligningReady)
+    #lavTangent(xAkseLen, ligningReady)
         
         
     
-def lavTangent(xAkseLen, ligningReady):
-    xTangent = float(input("\nPunkt på funktionen hvor du vil finde hældning: "))
+def lavTangent(xAkseLen, ligningReady, xTangent):
+    xTangent = float(xTangent)
     deltax = abs(xTangent)*5+1 #Start deltax
 
     timeToPause = 0.7
@@ -142,17 +142,14 @@ def lavTangent(xAkseLen, ligningReady):
             bundTangentY = stigning*xAkseLen+b
             topTangentY = stigning*-(xAkseLen)+b
 
-            tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
+            #tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
 
             timeToPause /= 2
             prevStigning = stigning
             prevB = b
 
-            plt.pause(timeToPause)
+            #plt.pause(timeToPause)
     except:
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
-if __name__ == '__main__':
-    decode()
-    plt.show()

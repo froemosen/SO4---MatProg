@@ -88,9 +88,10 @@ def printGraf(ligningReady):
             newfx = ligningReady.subs(dict(x=newx))
             print("newfx:",newfx)
 
-            if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje y-værdier fra
-                plt.plot([oldx, newx], [oldfx, newfx])
+            if abs(newfx) < (abs(oldfx)+50)*10 and abs(oldfx) < (abs(newfx)+50)*10: #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje y-værdier fra
+                plt.plot([oldx, newx], [oldfx, newfx], "-b")
             else:
+                print("For stor!!")
                 pass
         except:
             print("Lille fejl - y-værdi blev nok for høj, men fortsætter")
@@ -103,27 +104,30 @@ def lavTangent(xAkseLen, ligningReady):
     xTangent = float(input("\nPunkt på funktionen hvor du vil finde hældning: "))
     deltax = abs(xTangent)*5+1 #Start deltax
 
+    tangent = plt.plot([0, 1], [0, 1])
+
     timeToPause = 0.7
 
     x1 = xTangent-deltax
-    x2 = x1+deltax
+    x2 = xTangent+deltax
     y1 = ligningReady.subs(dict(x=x1))
     y2 = ligningReady.subs(dict(x=x2))
 
 
     stigning = (y2-y1)/(x2-x1)
-    prevStigning = stigning+1
+    prevStigning = stigning*1.1+10
 
     try:
         for execution in range(3000):
             deltax /= 2
 
-            x1 = xTangent-deltax
+            x1 = xTangent-deltax/2
             x2 = xTangent+deltax
             y1 = ligningReady.subs(dict(x=x1))
             y2 = ligningReady.subs(dict(x=x2))
 
             stigning = (y2-y1)/(x2-x1)
+
             b=(y1)-(stigning)*(x1)
 
             if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
@@ -131,11 +135,9 @@ def lavTangent(xAkseLen, ligningReady):
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x?
                 break
 
-            try:
-                line = tangent.pop(0)
-                line.remove()
-            except:
-                pass
+            line = tangent.pop(0)
+            line.remove()
+
 
             bundTangentX = xAkseLen
             topTangentX = -xAkseLen
@@ -148,8 +150,11 @@ def lavTangent(xAkseLen, ligningReady):
             prevStigning = stigning
             prevB = b
 
+            punkt = plt.plot(xTangent, ligningReady.subs(dict(x=xTangent)), "m*")
+
             plt.pause(timeToPause)
     except:
+        print("WRONG")
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 

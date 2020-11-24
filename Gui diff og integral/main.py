@@ -60,8 +60,8 @@ class MainFrame(tk.Frame):
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self)
         Box = tk.Frame(self)
-        ButtonFrame.pack(side = "top", fill = "x", expand= False)
-        Box.pack(side = "top", fill = "both", expand= True)
+        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
@@ -75,10 +75,10 @@ class MainFrame(tk.Frame):
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
         InsertNameButton = tk.Button(ButtonFrame, text = "InsertName", command = InsertNameWindow.lift)
 
-        MainMenuButton.pack(side = "left")
-        DifferencialButton.pack(side = "left")
-        IntergralButton.pack(side = "left")
-        InsertNameButton.pack(side = "left")
+        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5)
+        DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
+        IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
+        InsertNameButton.grid(row = 3, column = 0, padx = 5, pady = 5)
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()
@@ -111,5 +111,5 @@ if __name__ == "__main__":
     base.title("SO4 opgave")
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
-    base.wm_geometry("500x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
+    base.wm_geometry("1000x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
     base.mainloop() 

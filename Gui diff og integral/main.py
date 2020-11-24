@@ -11,16 +11,16 @@ class page(tk.Frame):
 class MainMenu(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Main Menu")
-        text.pack(side = "top", fill = "both", expand = True,)
+        text = tk.Label(self, text = "Main Menu", bg = 'blue')
+        text.pack(side = "top", fill = "both", expand = True)
 
-        text2 = tk.Label(self, text = "intro til opgaven")
+        text2 = tk.Label(self, text = "intro til opgaven", bg ='red')
         text2.pack(side = "top", fill = "both", expand = True)
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Skriv en ligning")
+        text = tk.Label(self, text = "Skriv en ligning", bg ='blue')
         entry = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")
@@ -28,11 +28,11 @@ class Differencial(page):
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
 
-        text.pack()
-        entry.pack()
-        text2.pack()
-        entry2.pack()
-        btn_beregn.pack()
+        text.pack(side = "top", fill = "both", expand = True)
+        entry.pack(side = "top", fill = "none", expand = none)
+        text2.pack(side = "top", fill = "both", expand = True)
+        entry2.pack(side = "top", fill = "none", expand = True)
+        btn_beregn.pack(side = "top", fill = "none", expand = True)
 
 
 class Intergral(page):
@@ -59,7 +59,7 @@ class MainFrame(tk.Frame):
 
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self)
-        Box = tk.Frame(self)
+        Box = tk.Frame(self,)
         ButtonFrame.pack(side = "left", fill = "x", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 

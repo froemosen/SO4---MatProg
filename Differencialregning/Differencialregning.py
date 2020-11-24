@@ -48,11 +48,9 @@ def decode():
                 
                 elif prevTegn != "*" and prevTegn != "**" and prevTegn != "" and prevTegn != "(" and prevTegn != "+" and prevTegn != "-" and prevTegn != "/" and tegn.isalpha():
                     prevTegn = "*"
-
-                #elif prevTegn.isalpha() and tegn.isalpha():
-                #    prevTegn = "*"
-
-                elif tegn.isalpha():
+                    tegn = "x"
+                
+                elif tegn.isalpha() and prevTegn == "" or prevTegn == "(":
                     tegn = "x"
                     prevTegn = ""
 
@@ -130,7 +128,7 @@ def lavTangent(xAkseLen, ligningReady):
 
             if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
                 print("\nHældningstal i punkt:  a =", stigning)
-                print("Tangentensligning:     t(x) = " + str(stigning)+"x"+str(b)) #Nyt symbol i stedet for x?
+                print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x?
                 break
 
             try:

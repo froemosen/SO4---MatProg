@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sympy
 from sympy import sin, cos, tan, pi
-
+import main
 def decode(ligningRaw):
     try:
         ligningString = ""
@@ -157,4 +157,5 @@ def lavTangent(xAkseLen, ligningReady, xTangent):
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
-def integral()
+def integral(xAkseLen, ligningReady):
+    pass

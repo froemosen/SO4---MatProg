@@ -29,38 +29,32 @@ class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
 
-        ligningRaw = str(int())
-        xAkseLen = str(int())
-        xTangent = str(int())
-
-        ligning = mesam.decode(ligningRaw)
-        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-
+        #ligningRaw = str(int())
+        #xAkseLen = str(int())
+        #xTangent = str(int())
+        
         def get():
+            ligningRaw = str(ligningInput.get())
+            xAkseLen = int(xAkseLenInput.get())
+            xTangent = float(xTangentInput.get())
 
-            ligning = ligningRaw.get()
-            xAksen = xAkseLen.get()
-            Tangent = xTangent.get() 
-            
-
-            ligningRaw.set("")
-            xAkseLen.set("")
-            xTangent.set("")
-
+            window(ligningRaw, xAkseLen, xTangent) 
+        
         text = tk.Label(self, text = "Skriv en ligning", bg = "red")
-        Ligning = tk.Entry(self, textvariable = ligningRaw)
+        ligningInput = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")
-        xAksen = tk.Entry(self, textvariable = xAkseLen)
+        xAkseLenInput = tk.Entry(self)
 
         text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
-        Tangent = tk.Entry(self, textvariable = xTangent)
+        xTangentInput = tk.Entry(self)
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = get)
 
-        def window():
-    
+        def window(ligningRaw, xAkseLen, xTangent):
+            ligning = mesam.decode(ligningRaw)
+            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+            xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
             f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
             a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
             a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
@@ -76,14 +70,16 @@ class Differencial(page):
             canvas._tkcanvas.grid(row = 6, column = 10) #Smider det ind i vinduet
 
 
-        ligningRaw = input
-        xAkseLen = int(input)
-        xTangent = float(input)
+        """
+        ligningRaw = input()
+        xAkseLen = int(input())
+        xTangent = float(input())
+        
 
         ligning = mesam.decode(ligningRaw)
         Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
         xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-
+        
         text = tk.Label(self, text = "Skriv en ligning", bg = "red")
         Ligning = tk.Entry(self, textvariable = ligningRaw)
 
@@ -94,17 +90,15 @@ class Differencial(page):
         Tangent = tk.Entry(self, textvariable = xTangent)
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
-
+        """
 
         text.grid(row = 0, column = 0, padx = 5, pady = 5,)
-        Ligning.grid(row = 1, column = 0, padx = 5, pady = 5,)
+        ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5,)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
-        xAksen.grid(row = 3, column = 0, padx = 5, pady = 5,)
+        xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5,)
         text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
-        Tangent.grid(row = 5, column = 0, padx = 5, pady = 5,)
-        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
-        
-        window()        
+        xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5,)
+        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)        
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):
@@ -157,4 +151,4 @@ if __name__ == "__main__":
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
     base.wm_geometry("1000x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
-    base.mainloop() 
+    base.mainloop()

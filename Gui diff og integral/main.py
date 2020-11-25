@@ -44,8 +44,12 @@ class Differencial(page):
         text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
         entry3.grid(row = 5, column = 0, padx = 5, pady = 5,)
         btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
-        window.grid(row = 7, rowspan = 2, column = 5, columnspan = 50)
+        window.place(relx = 0.5, rely = 0.5)
 
+class VisGraf(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self,*args, **kwargs)
+        
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):
@@ -92,9 +96,10 @@ class MainFrame(tk.Frame):
         tk.Frame.__init__(self, *args, **kwargs)
         MainMenuWindow = MainMenu(self)
         DifferencialWindow = Differencial(self)
+        VisGrafWindow = VisGraf(self)
         IntergralWindow = Intergral(self)
         GrafWindow = Graf(self)
-
+ 
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self , bg = "yellow")
         Box = tk.Frame(self,)
@@ -104,19 +109,24 @@ class MainFrame(tk.Frame):
         #Placering for kasserne
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        VisGrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
-        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", bg = "red", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", bg = "blue", command = DifferencialWindow.lift)
-        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", bg = "green", command = IntergralWindow.lift)
-        GrafButton = tk.Button(ButtonFrame, text = "Graf", bg = "pink", command = GrafWindow.lift)
+        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
+        VisGrafButton = tk.Button(ButtonFrame, text = "Vis Graf", command = VisGrafWindow.lift)
+        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning",  command = IntergralWindow.lift)
+        GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
+
 
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
-        IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
-        GrafButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        VisGrafButton.grid(row = 2, column = 0, padx = 5, pady = 5)
+        IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        GrafButton.grid(row = 4, column = 0, padx = 5, pady = 5)
+        
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()

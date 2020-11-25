@@ -164,7 +164,8 @@ def lavTangent(xAkseLen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
 
 def integral(xAkseLen, ligningReady, minX, maxX):
     deltax = maxX-minX
-    
+
 
 
     for excution in range(100):
+        pass

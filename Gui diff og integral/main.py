@@ -1,9 +1,9 @@
 import tkinter as tk #en ikke-terminal-baseret version af Differencialregning.py
+import mesam
 import matplotlib #graf plotter funktionaliteten
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk #importere toolbar til graf
 from matplotlib.figure import Figure #impotere grafen
-
-import meth 
+ 
 #Skelet for siderne.
 class page(tk.Frame):
     def __init__(self, *args, **kwargs):

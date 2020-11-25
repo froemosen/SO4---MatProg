@@ -98,7 +98,7 @@ class MainFrame(tk.Frame):
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self , bg = "yellow")
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        ButtonFrame.pack(side = "left", fill = "y", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne

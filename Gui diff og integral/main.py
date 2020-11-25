@@ -29,7 +29,7 @@ class Differencial(page):
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
 
         text.pack(side = "top", fill = "both", expand = True)
-        entry.pack(side = "top", fill = "none", expand = none)
+        entry.pack(side = "top", fill = "none", expand = True)
         text2.pack(side = "top", fill = "both", expand = True)
         entry2.pack(side = "top", fill = "none", expand = True)
         btn_beregn.pack(side = "top", fill = "none", expand = True)

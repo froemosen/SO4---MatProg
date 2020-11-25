@@ -24,7 +24,7 @@ class MainMenu(page):
 class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Skriv en ligning", bg ='blue')
+        text = tk.Label(self, text = "Skriv en ligning", bg ='grey')
         entry = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")

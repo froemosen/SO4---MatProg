@@ -3,7 +3,7 @@ import mesam
 import matplotlib #graf plotter funktionaliteten
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk #importere toolbar til graf
 from matplotlib.figure import Figure #impotere grafen
- 
+
 #Skelet for siderne.
 class page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -49,12 +49,15 @@ class Intergral(page):
 class Graf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
+        ligning = mesam.decode("x^2-5x")
+        Xvalues, Yvalues = mesam.printGraf(ligning, 10)
+
 
         f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
         a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-        a.plot([1, 2, 3, 4, 5, 6, 7, 8, 10, 12], [5, 6, 1, 3, 8, 9, 3, 5, 10, 12])  #Den data der bliver plottet på grafen
+        a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
         # (Grafen autoscaler)
-
+        #tangent = f.add_subplot(111)
         canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
         canvas.draw() #Tegner grafen ud fra givet argumenter
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
@@ -87,7 +90,7 @@ class MainFrame(tk.Frame):
 
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift) 
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
         GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
 
@@ -98,30 +101,7 @@ class MainFrame(tk.Frame):
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()
-"""
-class PageThree(tk.Frame):  #denne klasse af koden er hentet på: https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
-
-        button1 = ttk.Button(self, text="Back to Home",
-                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-
-        f = Figure(figsize=(5, 5), dpi=100)
-        a = f.add_subplot(111)
-        a.plot([1, 2, 3, 4, 5, 6, 7, 8], [5, 6, 1, 3, 8, 9, 3, 5])
-
-        canvas = FigureCanvasTkAgg(f, self)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-
-        toolbar = NavigationToolbar2Tk(canvas, self)
-        toolbar.update()
-        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-"""
 #Får lavet GUIen til koden       
 if __name__ == "__main__":
     base = tk.Tk()

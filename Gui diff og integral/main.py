@@ -1,5 +1,9 @@
 import tkinter as tk #en ikke-terminal-baseret version af Differencialregning.py
 import mesam
+import matplotlib #graf plotter funktionaliteten
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk #importere toolbar til graf
+from matplotlib.figure import Figure #impotere grafen
+ 
 #Skelet for siderne.
 class page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -42,11 +46,23 @@ class Intergral(page):
         text.pack(side = "top", fill = "both", expand = True)
 
 
-class InsertName(page):
+class Graf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "General Konobi!!!")
-        text.pack(side = "top", fill = "both", expand = True)
+
+        f = Figure(figsize=(4, 4), dpi=80) #bestemmer størelsen af grafen sammen med nedenstående linje
+        a = f.add_subplot(111)             #bestemmer størelsen af grafen sammen med ovenstående linje
+        a.plot([1, 2, 3, 4, 5, 6, 7, 8, 10, 12], [5, 6, 1, 3, 8, 9, 3, 5, 10, 12])  #den data der bliver plottet på grafen
+        # (grafen autoscaler)
+
+        canvas = FigureCanvasTkAgg(f, self) #give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
+        canvas.draw() #tegner grafen ud fra givet argumenter
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #smider det ind i vinduet
+
+        toolbar = NavigationToolbar2Tk(canvas, self) #tager imod de relevante argumenter og info
+        toolbar.update() #tjekker om den bliver brugt
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
+
 
 #Laver variabler til knapper.
 class MainFrame(tk.Frame):
@@ -55,30 +71,30 @@ class MainFrame(tk.Frame):
         MainMenuWindow = MainMenu(self)
         DifferencialWindow = Differencial(self)
         IntergralWindow = Intergral(self)
-        InsertNameWindow = InsertName(self)
+        GrafWindow = Graf(self)
 
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self)
+        ButtonFrame = tk.Frame(self, bg = 'green')
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        ButtonFrame.pack(side = "left", fill = "y", expand= False,)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
-        InsertNameWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
         DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift) 
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
-        InsertNameButton = tk.Button(ButtonFrame, text = "InsertName", command = InsertNameWindow.lift)
+        GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
 
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
         IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
-        InsertNameButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        GrafButton.grid(row = 3, column = 0, padx = 5, pady = 5)
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()

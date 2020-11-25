@@ -75,6 +75,8 @@ class Graf(page):
         a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
         # (Grafen autoscaler)
         #tangent = f.add_subplot(111)
+        #tangent.plot()
+
         canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
         canvas.draw() #Tegner grafen ud fra givet argumenter
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #Smider det ind i vinduet

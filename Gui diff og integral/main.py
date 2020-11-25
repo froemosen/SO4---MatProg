@@ -58,7 +58,8 @@ class Differencial(page):
             f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
             a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
             a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
-            a.plot(xTangent, yTangent)
+            a.plot(xTangent, yTangent) #TangentLinje
+            #a.plot(xTangent, yTangent, "m*")
             # (Grafen autoscaler)
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)

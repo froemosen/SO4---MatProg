@@ -1,5 +1,5 @@
 import tkinter as tk #en ikke-terminal-baseret version af Differencialregning.py
-import meth 
+import mesam
 #Skelet for siderne.
 class page(tk.Frame):
     def __init__(self, *args, **kwargs):

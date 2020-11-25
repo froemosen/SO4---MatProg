@@ -23,8 +23,9 @@ class MainMenu(page):
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        page.__init__(self, *args, **kwargs, bg="green")
+
+        text = tk.Label(self, text = "Skriv en ligning")
         entry = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")
@@ -37,6 +38,8 @@ class Differencial(page):
 
         window = tk.Label(self, text = "Whatever", bg = "red", )
 
+        window2 = tk.Label(self, text = "Whatever", bg = "blue", )
+
         text.grid(row = 0, column = 0, padx = 5, pady = 5,)
         entry.grid(row = 1, column = 0, padx = 5, pady = 5,)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
@@ -44,8 +47,15 @@ class Differencial(page):
         text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
         entry3.grid(row = 5, column = 0, padx = 5, pady = 5,)
         btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
-        window.grid(row = 7, rowspan = 2, column = 5, columnspan = 50)
 
+        window.grid(row = 7, column = 5)
+        window2.grid(row = 7, column = 6)
+        window.place(relx = 0.5, rely = 0.5)
+
+class VisGraf(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self,*args, **kwargs)
+        
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):
@@ -65,14 +75,16 @@ class Graf(page):
         #Midlertidig!!
         ligningRaw = input("Indtast ligning: ")
         xAkseLen = int(input("Længde på x-akse i begge retninger: "))
+        xTangent = float(input("Punkt til tangent: "))
 
         ligning = mesam.decode(ligningRaw)
         Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-
+        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
 
         f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
         a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
         a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+        a.plot(xTangent, yTangent)
         # (Grafen autoscaler)
         #tangent = f.add_subplot(111)
         #tangent.plot()
@@ -92,31 +104,37 @@ class MainFrame(tk.Frame):
         tk.Frame.__init__(self, *args, **kwargs)
         MainMenuWindow = MainMenu(self)
         DifferencialWindow = Differencial(self)
+        VisGrafWindow = VisGraf(self)
         IntergralWindow = Intergral(self)
         GrafWindow = Graf(self)
-
+ 
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self , bg = "yellow")
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        ButtonFrame.pack(side = "left", fill = "y", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        VisGrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
-        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", bg = "red", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", bg = "blue", command = DifferencialWindow.lift)
-        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", bg = "green", command = IntergralWindow.lift)
-        GrafButton = tk.Button(ButtonFrame, text = "Graf", bg = "pink", command = GrafWindow.lift)
+        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
+        VisGrafButton = tk.Button(ButtonFrame, text = "Vis Graf", command = VisGrafWindow.lift)
+        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning",  command = IntergralWindow.lift)
+        GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
+
 
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
-        IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
-        GrafButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        VisGrafButton.grid(row = 2, column = 0, padx = 5, pady = 5)
+        IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        GrafButton.grid(row = 4, column = 0, padx = 5, pady = 5)
+        
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()

@@ -76,6 +76,26 @@ class Differencial(page):
             canvas._tkcanvas.grid(row = 6, column = 10) #Smider det ind i vinduet
 
 
+        ligningRaw = input
+        xAkseLen = int(input)
+        xTangent = float(input)
+
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+
+        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        Ligning = tk.Entry(self, textvariable = ligningRaw)
+
+        text2 = tk.Label(self, text = "Vælg en x-værdi")
+        xAksen = tk.Entry(self, textvariable = xAkseLen)
+
+        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        Tangent = tk.Entry(self, textvariable = xTangent)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn")
+
+
         text.grid(row = 0, column = 0, padx = 5, pady = 5,)
         Ligning.grid(row = 1, column = 0, padx = 5, pady = 5,)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)

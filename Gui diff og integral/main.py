@@ -58,9 +58,9 @@ class MainFrame(tk.Frame):
         InsertNameWindow = InsertName(self)
 
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self)
+        ButtonFrame = tk.Frame(self, bg = 'green')
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        ButtonFrame.pack(side = "left", fill = "y", expand= False,)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne

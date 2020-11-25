@@ -30,6 +30,9 @@ class Differencial(page):
         text2 = tk.Label(self, text = "Vælg en x-værdi")
         entry2 = tk.Entry(self)
 
+        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        entry3 = tk.Entry(self)
+
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
 
         window = tk.Label(self, text = "Whatever", bg = "red", )
@@ -38,8 +41,10 @@ class Differencial(page):
         entry.grid(row = 1, column = 0, padx = 5, pady = 5,)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
         entry2.grid(row = 3, column = 0, padx = 5, pady = 5,)
-        btn_beregn.grid(row = 4, column = 0, padx = 5, pady = 5,)
-        window.grid(row = 5, rowspan = 2, column = 5, columnspan = 50)
+        text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
+        entry3.grid(row = 5, column = 0, padx = 5, pady = 5,)
+        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
+        window.grid(row = 7, rowspan = 2, column = 5, columnspan = 50)
 
 
 class Intergral(page):

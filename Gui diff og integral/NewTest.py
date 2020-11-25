@@ -53,17 +53,20 @@ import sympy
 import matplotlib.pyplot as plt
 
 ligning = sympy.sympify("x**2")
+x0 = 10
+x1 = 14
 
-xValues, yValues, areal, deltax = mesam.integral(ligning, 10, 14)
+xValues, yValues, areal, deltax = mesam.integral(ligning, x0, x1)
 
 #print("xValues:", xValues)
 #print("yValues:", yValues)
 print("areal:", areal)
 print("deltax:", deltax)
 
-xValuesLigning, yValuesLigning = mesam.printGraf("x**2", 10)
+plt.plot([x0, x0], [0, ligning.subs(dict(x=x0))], "-b")
+plt.plot([x1, x1], [0, ligning.subs(dict(x=x1))], "-b")
 
-plt.plot(xValuesLigning, yValuesLigning)
+
 
 #plt.fill(xValues, yValues, zorder=10)
 

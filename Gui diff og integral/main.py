@@ -23,8 +23,9 @@ class MainMenu(page):
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        page.__init__(self, *args, **kwargs, bg="green")
+
+        text = tk.Label(self, text = "Skriv en ligning")
         entry = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")
@@ -37,6 +38,8 @@ class Differencial(page):
 
         window = tk.Label(self, text = "Whatever", bg = "red", )
 
+        window2 = tk.Label(self, text = "Whatever", bg = "blue", )
+
         text.grid(row = 0, column = 0, padx = 5, pady = 5,)
         entry.grid(row = 1, column = 0, padx = 5, pady = 5,)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
@@ -44,8 +47,9 @@ class Differencial(page):
         text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
         entry3.grid(row = 5, column = 0, padx = 5, pady = 5,)
         btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
-        window.grid(row = 7, rowspan = 2, column = 5, columnspan = 50)
 
+        window.grid(row = 7, column = 5)
+        window2.grid(row = 7, column = 6)
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):

@@ -11,16 +11,16 @@ class page(tk.Frame):
 class MainMenu(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Main Menu", bg = 'blue')
+        text = tk.Label(self, text = "Main Menu")
         text.pack(side = "top", fill = "both", expand = True)
 
-        text2 = tk.Label(self, text = "intro til opgaven", bg ='red')
+        text2 = tk.Label(self, text = "intro til opgaven")
         text2.pack(side = "top", fill = "both", expand = True)
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "Skriv en ligning", bg ='blue')
+        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
         entry = tk.Entry(self)
 
         text2 = tk.Label(self, text = "Vælg en x-værdi")
@@ -28,11 +28,14 @@ class Differencial(page):
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
 
-        text.pack(side = "top", fill = "both", expand = True)
-        entry.pack(side = "top", fill = "none", expand = True)
-        text2.pack(side = "top", fill = "both", expand = True)
-        entry2.pack(side = "top", fill = "none", expand = True)
-        btn_beregn.pack(side = "top", fill = "none", expand = True)
+        window = tk.Label(self, text = "Whatever", bg = "red", )
+
+        text.grid(row = 0, column = 0, padx = 5, pady = 5,)
+        entry.grid(row = 1, column = 0, padx = 5, pady = 5,)
+        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
+        entry2.grid(row = 3, column = 0, padx = 5, pady = 5,)
+        btn_beregn.grid(row = 4, column = 0, padx = 5, pady = 5,)
+        window.grid(row = 5, rowspan = 2, column = 5, columnspan = 50)
 
 
 class Intergral(page):
@@ -70,12 +73,12 @@ class MainFrame(tk.Frame):
         InsertNameWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
-        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift) 
-        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
-        InsertNameButton = tk.Button(ButtonFrame, text = "InsertName", command = InsertNameWindow.lift)
+        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", bg = "blue", command = MainMenuWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", bg = "green", command = DifferencialWindow.lift) 
+        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", bg = "yellow", command = IntergralWindow.lift)
+        InsertNameButton = tk.Button(ButtonFrame, text = "InsertName", bg = "red", command = InsertNameWindow.lift)
 
-        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5)
+        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
         IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
         InsertNameButton.grid(row = 3, column = 0, padx = 5, pady = 5)

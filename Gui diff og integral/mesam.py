@@ -152,8 +152,31 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
 def integral(xakselen, ligningReady, minX, maxX):
     xAkseLen = abs(int(xakselen))
     deltax = maxX-minX
+    step = 1
 
+    minY = ligningReady.subs(x=minX)
+    maxY = ligningReady.subs(x=maxX)
+    
+    xValues = []
+    yValues = []
 
+    currentX = minX
+    currentA = 1
+    prevA = 10
 
     for i in range(200):
+        
+        if abs(currentA-prevA) < 10*(-5):
+            areal = currentA
+            break
+        
+        xValues.append()
         pass
+
+    return (xValues, yValues)#, gab, areal, )
+    #Liste med x'er
+    #Lister med y'er (Y_2)
+    #Y_1 = 0
+    #Gab = deltax/opdeling
+    #Areal
+    #https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between

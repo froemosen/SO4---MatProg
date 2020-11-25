@@ -52,8 +52,13 @@ class Intergral(page):
 class Graf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        ligning = mesam.decode("x^2-5x")
-        Xvalues, Yvalues = mesam.printGraf(ligning, 10)
+        #input -> str(ligning)
+        #ligningRaw = #input
+        #input -> int(xAkseLen)
+        #xAkselen = #input
+
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
 
 
         f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje

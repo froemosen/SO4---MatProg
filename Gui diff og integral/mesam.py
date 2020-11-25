@@ -1,8 +1,9 @@
+#MESAM = 'Mathematical Equation Solver And More' aka vores script med matematiske funktioner. 
 import numpy as np
 import matplotlib.pyplot as plt
 import sympy
 from sympy import sin, cos, tan, pi
-
+import main
 def decode(ligningRaw):
     try:
         ligningString = ""
@@ -76,6 +77,8 @@ def decode(ligningRaw):
 def printGraf(ligningReady, xAkselen):
     xAkseLen = abs(int(xAkseLen))
     newx = -xAkseLen
+    xValues = []
+    yValues = []
     #plt.grid() #VI VED IKKE OM VI STADIG BRUGER PLT
     for value in range(xAkseLen*20*2):
         try:
@@ -87,43 +90,47 @@ def printGraf(ligningReady, xAkselen):
             print("newfx:",newfx)
 
             if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje/lave y-værdier fra
-                #plt.plot([oldx, newx], [oldfx, newfx])
-                #Plot smthn her - idk how
-                pass
+                xValues.append(newx)
+                yValues.append(newfx)
             else:
                 pass
         except:
             print("Lille fejl - y-værdi blev nok for høj, men fortsætter")
 
+    return (xValues, yValues)
+
     #lavTangent(xAkseLen, ligningReady)
         
         
     
-def lavTangent(xAkseLen, ligningReady, xTangent):
+def lavTangent(xAkseLen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL AT RETURNERE VÆRDIER
     xTangent = float(xTangent)
     deltax = abs(xTangent)*5+1 #Start deltax
+
+    tangent = plt.plot([0, 1], [0, 1])
 
     timeToPause = 0.7
 
     x1 = xTangent-deltax
-    x2 = x1+deltax
+    x2 = xTangent+deltax
     y1 = ligningReady.subs(dict(x=x1))
     y2 = ligningReady.subs(dict(x=x2))
 
 
     stigning = (y2-y1)/(x2-x1)
-    prevStigning = stigning+1
+    prevStigning = stigning*1.1+10
 
     try:
         for execution in range(3000):
             deltax /= 2
 
-            x1 = xTangent-deltax
+            x1 = xTangent-deltax/2
             x2 = xTangent+deltax
             y1 = ligningReady.subs(dict(x=x1))
             y2 = ligningReady.subs(dict(x=x2))
 
             stigning = (y2-y1)/(x2-x1)
+
             b=(y1)-(stigning)*(x1)
 
             if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
@@ -131,25 +138,33 @@ def lavTangent(xAkseLen, ligningReady, xTangent):
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x?
                 break
 
-            try:
-                line = tangent.pop(0)
-                line.remove()
-            except:
-                pass
+            line = tangent.pop(0)
+            line.remove()
+
 
             bundTangentX = xAkseLen
             topTangentX = -xAkseLen
             bundTangentY = stigning*xAkseLen+b
             topTangentY = stigning*-(xAkseLen)+b
 
-            #tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
+            tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
 
-            timeToPause /= 2
+            timeToPause /= 3
             prevStigning = stigning
             prevB = b
 
-            #plt.pause(timeToPause)
+            punkt = plt.plot(xTangent, ligningReady.subs(dict(x=xTangent)), "m*")
+
+            plt.pause(timeToPause)
+    
     except:
+        print("WRONG, but still")
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
+def integral(xAkseLen, ligningReady, minX, maxX):
+    deltax = maxX-minX
+    
+
+
+    for excution in range(100):

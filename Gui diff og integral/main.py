@@ -29,19 +29,18 @@ class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
 
-        ligningRaw = str(int())
-        xAkseLen = str(int())
-        xTangent = str(int())
+        ligningRaw = ""
+        xAkseLen = 0
+        xTangent = 0
 
         ligning = mesam.decode(ligningRaw)
         Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
         xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
 
         def get():
-
-            ligning = ligningRaw.get()
-            xAksen = xAkseLen.get()
-            Tangent = xTangent.get() 
+            ligning = str(ligningRaw.get())
+            xAksenLen = int(xAkseLen.get())
+            Tangent = int(xTangent.get())
             
 
             ligningRaw.set("")

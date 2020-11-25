@@ -1,3 +1,4 @@
+"""
 import tkinter
 
 from matplotlib.backends.backend_tkagg import (
@@ -45,3 +46,55 @@ button.pack(side=tkinter.BOTTOM)
 tkinter.mainloop()
 # If you put root.destroy() here, it will cause an error if the window is
 # closed with the window manager.
+"""
+
+import mesam
+import sympy
+import matplotlib.pyplot as plt
+
+ligning = sympy.sympify("x**2")
+
+xValues, yValues, areal, deltax = mesam.integral(ligning, 10, 14)
+
+#print("xValues:", xValues)
+#print("yValues:", yValues)
+print("areal:", areal)
+print("deltax:", deltax)
+
+xValuesLigning, yValuesLigning = mesam.printGraf("x**2", 10)
+
+plt.plot(xValuesLigning, yValuesLigning)
+
+#plt.fill(xValues, yValues, zorder=10)
+
+plt.show()
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 1, 500)
+y = np.sin(4 * np.pi * x) * np.exp(-5 * x)
+###############################################################################
+# First, the most basic fill plot a user can make with matplotlib:
+
+fig, ax = plt.subplots()
+
+ax.fill(x, y, zorder=10)
+ax.grid(True, zorder=5)
+
+x = np.linspace(0, 2 * np.pi, 500)
+y1 = np.sin(x)
+y2 = np.sin(3 * x)
+
+###############################################################################
+# Next, a few more optional features:
+#
+# * Multiple curves with a single command.
+# * Setting the fill color.
+# * Setting the opacity (alpha value).
+
+fig, ax = plt.subplots()
+ax.fill(x, y1, 'b', x, y2, 'r', alpha=0.3)
+plt.show()
+"""

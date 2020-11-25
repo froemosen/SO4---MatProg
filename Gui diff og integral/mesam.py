@@ -107,10 +107,6 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
     xTangent = float(xTangent)
     deltax = abs(xTangent)*5+1 #Start deltax
 
-    tangent = plt.plot([0, 1], [0, 1])
-
-    timeToPause = 0.7
-
     x1 = xTangent-deltax
     x2 = xTangent+deltax
     y1 = ligningReady.subs(dict(x=x1))
@@ -121,7 +117,7 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
     prevStigning = stigning*1.1+10
 
     try:
-        for execution in range(3000):
+        for i in range(200):
             deltax /= 2
 
             x1 = xTangent-deltax/2
@@ -131,31 +127,20 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
 
             stigning = (y2-y1)/(x2-x1)
 
-            b=(y1)-(stigning)*(x1)
-
             if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
+                b=(y1)-(stigning)*(x1)
+                bundTangentX = xAkseLen
+                topTangentX = -xAkseLen
+                bundTangentY = stigning*xAkseLen+b
+                topTangentY = stigning*-(xAkseLen)+b
                 print("\nHældningstal i punkt:  a =", stigning)
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x?
                 break
 
-            line = tangent.pop(0)
-            line.remove()
-
-
-            bundTangentX = xAkseLen
-            topTangentX = -xAkseLen
-            bundTangentY = stigning*xAkseLen+b
-            topTangentY = stigning*-(xAkseLen)+b
-
-            tangent = plt.plot([bundTangentX, topTangentX], [bundTangentY, topTangentY])
-
-            timeToPause /= 3
             prevStigning = stigning
             prevB = b
 
             punkt = plt.plot(xTangent, ligningReady.subs(dict(x=xTangent)), "m*")
-
-            plt.pause(timeToPause)
     
     except:
         print("WRONG, but still")
@@ -169,5 +154,5 @@ def integral(xakselen, ligningReady, minX, maxX):
 
 
 
-    for excution in range(100):
+    for i in range(200):
         pass

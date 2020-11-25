@@ -57,6 +57,10 @@ class Graf(page):
         #input -> int(xAkseLen)
         #xAkselen = #input
 
+        #Midlertidig!!
+        ligningRaw = input("Indtast ligning: ")
+        xAkseLen = int(input("Længde på x-akse i begge retninger: "))
+
         ligning = mesam.decode(ligningRaw)
         Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
 

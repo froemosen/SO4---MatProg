@@ -101,9 +101,9 @@ def printGraf(ligningReady, xakselen):
 
     #lavTangent(xAkseLen, ligningReady)
         
-        
-    
-def lavTangent(xAkseLen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL AT RETURNERE VÆRDIER
+         
+def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL AT RETURNERE VÆRDIER
+    xAkseLen = abs(int(xakselen))
     xTangent = float(xTangent)
     deltax = abs(xTangent)*5+1 #Start deltax
 
@@ -162,7 +162,9 @@ def lavTangent(xAkseLen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
         print("\nHældningstal i punkt:  a =", prevStigning)
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
-def integral(xAkseLen, ligningReady, minX, maxX):
+
+def integral(xakselen, ligningReady, minX, maxX):
+    xAkseLen = abs(int(xakselen))
     deltax = maxX-minX
 
 

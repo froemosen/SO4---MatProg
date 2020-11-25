@@ -65,14 +65,16 @@ class Graf(page):
         #Midlertidig!!
         ligningRaw = input("Indtast ligning: ")
         xAkseLen = int(input("Længde på x-akse i begge retninger: "))
+        xTangent = float(input("Punkt til tangent: "))
 
         ligning = mesam.decode(ligningRaw)
         Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-
+        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
 
         f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
         a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
         a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+        a.plot(xTangent, yTangent)
         # (Grafen autoscaler)
         #tangent = f.add_subplot(111)
         canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)

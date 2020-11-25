@@ -50,16 +50,16 @@ class Graf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
 
-        f = Figure(figsize=(4, 4), dpi=80) #bestemmer størelsen af grafen sammen med nedenstående linje
-        a = f.add_subplot(111)             #bestemmer størelsen af grafen sammen med ovenstående linje
-        a.plot([1, 2, 3, 4, 5, 6, 7, 8, 10, 12], [5, 6, 1, 3, 8, 9, 3, 5, 10, 12])  #den data der bliver plottet på grafen
-        # (grafen autoscaler)
+        f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+        a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+        a.plot([1, 2, 3, 4, 5, 6, 7, 8, 10, 12], [5, 6, 1, 3, 8, 9, 3, 5, 10, 12])  #Den data der bliver plottet på grafen
+        # (Grafen autoscaler)
 
-        canvas = FigureCanvasTkAgg(f, self) #give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
-        canvas.draw() #tegner grafen ud fra givet argumenter
-        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #smider det ind i vinduet
+        canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
+        canvas.draw() #Tegner grafen ud fra givet argumenter
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
 
-        toolbar = NavigationToolbar2Tk(canvas, self) #tager imod de relevante argumenter og info
+        toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
         toolbar.update() #tjekker om den bliver brugt
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
 

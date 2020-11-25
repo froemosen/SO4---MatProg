@@ -40,10 +40,10 @@ class Differencial(page):
 
             window(ligningRaw, xAkseLen, xTangent) 
         
-        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        text = tk.Label(self, text = "Skriv en ligning")
         ligningInput = tk.Entry(self)
 
-        text2 = tk.Label(self, text = "Vælg en x-værdi")
+        text2 = tk.Label(self, text = "Vælg en x-værdi (Punkt hvor du vil finde hældning)")
         xAkseLenInput = tk.Entry(self)
 
         text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
@@ -54,21 +54,22 @@ class Differencial(page):
         def window(ligningRaw, xAkseLen, xTangent):
             ligning = mesam.decode(ligningRaw)
             Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-            xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-            f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            xerTilTangent, yerTilTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+            f = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
             a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
             a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
-            a.plot(xTangent, yTangent) #TangentLinje
-            #a.plot(xTangent, yTangent, "m*")
+            a.plot(xerTilTangent, yerTilTangent, "-m") #TangentLinje
+            a.plot(xTangent, mesam.sympy.sympify(ligning.subs(dict(x=xTangent))), "m*")
             # (Grafen autoscaler)
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 1) #Smider det ind i vinduet
+            canvas.get_tk_widget().grid(row = 0, column = 5, rowspan = 6) #Smider det ind i vinduet
 
             toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
             toolbar.update() #tjekker om den bliver brugt
-            canvas._tkcanvas.grid(row = 6, column = 10) #Smider det ind i vinduet
+
+            canvas.get_tk_widget().grid(row = 7, column = 5, rowspan = 3)
 
 
         """
@@ -93,13 +94,13 @@ class Differencial(page):
         btn_beregn = tk.Button(self, text = "Tegn og beregn")
         """
 
-        text.grid(row = 0, column = 0, padx = 5, pady = 5,)
-        ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5,)
+        text.grid(row = 0, column = 0, padx = 5, pady = 5)
+        ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
         text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
-        xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5,)
-        text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
-        xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5,)
-        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)        
+        xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
+        text3.grid(row = 4, column = 0, padx = 5, pady = 5)
+        xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5)
+        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):

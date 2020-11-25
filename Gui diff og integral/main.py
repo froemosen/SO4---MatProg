@@ -49,7 +49,7 @@ class Intergral(page):
         text.pack(side = "top", fill = "both", expand = True)
 
 
-class InsertName(page):
+class Graf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
         ligning = mesam.decode("x^2-5x")
@@ -77,10 +77,10 @@ class MainFrame(tk.Frame):
         MainMenuWindow = MainMenu(self)
         DifferencialWindow = Differencial(self)
         IntergralWindow = Intergral(self)
-        InsertNameWindow = InsertName(self)
+        GrafWindow = Graf(self)
 
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self)
+        ButtonFrame = tk.Frame(self, bg = "green")
         Box = tk.Frame(self,)
         ButtonFrame.pack(side = "left", fill = "x", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
@@ -89,7 +89,7 @@ class MainFrame(tk.Frame):
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
-        InsertNameWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
@@ -100,7 +100,7 @@ class MainFrame(tk.Frame):
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
         IntergralButton.grid(row = 2, column = 0, padx = 5, pady = 5)
-        InsertNameButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        GrafButton.grid(row = 3, column = 0, padx = 5, pady = 5)
 
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()

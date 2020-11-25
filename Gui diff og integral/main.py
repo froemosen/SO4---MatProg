@@ -80,7 +80,7 @@ class MainFrame(tk.Frame):
         GrafWindow = Graf(self)
 
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self, bg = "green")
+        ButtonFrame = tk.Frame(self , bg = "yellow")
         Box = tk.Frame(self,)
         ButtonFrame.pack(side = "left", fill = "x", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
@@ -92,10 +92,10 @@ class MainFrame(tk.Frame):
         GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
-        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
-        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", command = IntergralWindow.lift)
-        GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
+        MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", bg = "red", command = MainMenuWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", bg = "blue", command = DifferencialWindow.lift)
+        IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning", bg = "green", command = IntergralWindow.lift)
+        GrafButton = tk.Button(ButtonFrame, text = "Graf", bg = "pink", command = GrafWindow.lift)
 
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
         DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)

@@ -38,9 +38,10 @@ class Differencial(page):
         xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
 
         def get():
-            ligning = str(ligningRaw.get())
-            xAksenLen = int(xAkseLen.get())
-            Tangent = int(xTangent.get())
+
+            ligning = ligningRaw.get()
+            xAksen = xAkseLen.get()
+            Tangent = xTangent.get() 
             
 
             ligningRaw.set("")

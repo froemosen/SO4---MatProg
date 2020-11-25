@@ -29,36 +29,6 @@ class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
 
-        ligningRaw = str(int())
-        xAkseLen = str(int())
-        xTangent = str(int())
-
-        ligning = mesam.decode(ligningRaw)
-        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-
-        def get():
-
-            ligning = ligningRaw.get()
-            xAksen = xAkseLen.get()
-            Tangent = xTangent.get() 
-            
-
-            ligningRaw.set("")
-            xAkseLen.set("")
-            xTangent.set("")
-
-        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
-        Ligning = tk.Entry(self, textvariable = ligningRaw)
-
-        text2 = tk.Label(self, text = "Vælg en x-værdi")
-        xAksen = tk.Entry(self, textvariable = xAkseLen)
-
-        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
-        Tangent = tk.Entry(self, textvariable = xTangent)
-
-        btn_beregn = tk.Button(self, text = "Tegn og beregn", command = get)
-
         def window():
     
             f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
@@ -74,6 +44,26 @@ class Differencial(page):
             toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
             toolbar.update() #tjekker om den bliver brugt
             canvas._tkcanvas.grid(row = 6, column = 10) #Smider det ind i vinduet
+
+
+        ligningRaw = input
+        xAkseLen = int(input)
+        xTangent = float(input)
+
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+
+        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        Ligning = tk.Entry(self, textvariable = ligningRaw)
+
+        text2 = tk.Label(self, text = "Vælg en x-værdi")
+        xAksen = tk.Entry(self, textvariable = xAkseLen)
+
+        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        Tangent = tk.Entry(self, textvariable = xTangent)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn")
 
 
         text.grid(row = 0, column = 0, padx = 5, pady = 5,)

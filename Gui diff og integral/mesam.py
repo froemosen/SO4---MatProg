@@ -74,8 +74,8 @@ def decode(ligningRaw):
         #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")
     
 
-def printGraf(ligningReady, xAkselen):
-    xAkseLen = abs(int(xAkseLen))
+def printGraf(ligningReady, xakselen):
+    xAkseLen = abs(int(xakselen))
     newx = -xAkseLen
     xValues = []
     yValues = []

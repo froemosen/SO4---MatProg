@@ -109,6 +109,7 @@ class MainFrame(tk.Frame):
         DifferencialWindow = Differencial(self)
         IntergralWindow = Intergral(self)
         Differencialx1000Window = Differencialx1000(self)
+
  
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self, bg = '#bcc8e8', borderwidth = 3, relief = 'raised')
@@ -124,7 +125,8 @@ class MainFrame(tk.Frame):
         Differencialx1000Window.place(in_ = Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
 
-
+        options = tk.Label(ButtonFrame, text = "Options", bg = '#bcc8e8')
+        options.config(font=("Courier", 20), bg = '#bcc8e8')
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
         VisGrafButton = tk.Button(ButtonFrame, text = "Vis Graf", command = VisGrafWindow.lift)
@@ -132,11 +134,12 @@ class MainFrame(tk.Frame):
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning",  command = IntergralWindow.lift)
         Differencialx1000Button = tk.Button(ButtonFrame, text = "1000x Differencial", command = Differencialx1000Window.lift)
 
-        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 20)
-        VisGrafButton.grid(row = 1, column = 0, padx = 5, pady = 20)
-        DifferencialButton.grid(row = 2, column = 0, padx = 5, pady = 20)
-        IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 20)
-        Differencialx1000Button.grid(row = 4, column = 0, padx = 5, pady = 20)
+        options.grid(row = 0, column = 0, padx = 5, pady = 20)
+        MainMenuButton.grid(row = 1, column = 0, padx = 5, pady = 20)
+        VisGrafButton.grid(row = 2, column = 0, padx = 5, pady = 20)
+        DifferencialButton.grid(row = 3, column = 0, padx = 5, pady = 20)
+        IntergralButton.grid(row = 4, column = 0, padx = 5, pady = 20)
+        Differencialx1000Button.grid(row = 5, column = 0, padx = 5, pady = 20)
         
 
         #Hvilken side programmet skal starte i

@@ -69,10 +69,11 @@ plt.plot([x0, x0], [0, ligning.subs(dict(x=x0))], "-b")
 print(len(xValues))
 print(len(yValues))
 
-for linje in range(8):
+for linje in range(7):
+    print(int(len(yValues)*(linje+1)/8))
     xLinje = xValues[int(len(xValues)*(linje+1)/8)]
     yLinje = yValues[int(len(yValues)*(linje+1)/8)]
-    print(int(len(yValues)*(linje+1)/8))
+    print(xLinje, yLinje)
     plt.plot([xLinje, xLinje], [0, yLinje])
   
 plt.plot([x1, x1], [0, ligning.subs(dict(x=x1))], "-b")

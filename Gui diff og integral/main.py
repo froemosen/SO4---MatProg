@@ -16,10 +16,12 @@ class MainMenu(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
         text = tk.Label(self, text = "Main Menu")
-        text.pack(side = "top", fill = "both", expand = True)
+        text.config(font=("Courier", 44), bg = '#bcc8e8')
+        text.pack(side = "top", fill ='x')
 
-        text2 = tk.Label(self, text = "intro til opgaven")
-        text2.pack(side = "top", fill = "both", expand = True)
+        text2 = tk.Label(self, text = "intro til GUI'en")
+        text2.config(font=("Courier", 20), bg = '#bcc8e8')
+        text2.pack(side = "top", fill = "x")
 
 class VisGraf(page):
     def __init__(self, *args, **kwargs):
@@ -85,20 +87,27 @@ class Intergral(page):
         text = tk.Label(self, text = "General Konobi!!!")
         text.pack(side = "top", fill = "both", expand = True)
 
+class Differencialx1000(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self, *args, **kwargs)
+        text = tk.Label(self, text = "General Konobi!!!")
+        text.pack(side = "top", fill = "both", expand = True)
+
 
 #Laver variabler til knapper.
 class MainFrame(tk.Frame):
     def __init__(self, *args, **kwargs):
-        tk.Frame.__init__(self, *args, **kwargs)
+        tk.Frame.__init__(self, *args, **kwargs, bg = '#bcc8e8', )
         MainMenuWindow = MainMenu(self)
         VisGrafWindow = VisGraf(self)
         DifferencialWindow = Differencial(self)
         IntergralWindow = Intergral(self)
+        Differencialx1000Window = Differencialx1000(self)
  
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self,)
+        ButtonFrame = tk.Frame(self, bg = '#bcc8e8', borderwidth = 3, relief = 'raised')
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "x", expand= False)
+        ButtonFrame.pack(side = "left", fill = "both", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne
@@ -106,18 +115,22 @@ class MainFrame(tk.Frame):
         VisGrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        Differencialx1000Window.place(in_ = Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+
+
 
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
         VisGrafButton = tk.Button(ButtonFrame, text = "Vis Graf", command = VisGrafWindow.lift)
         DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning",  command = IntergralWindow.lift)
+        Differencialx1000Button = tk.Button(ButtonFrame, text = "1000x Differencial", command = Differencialx1000Window.lift)
 
-
-        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
-        VisGrafButton.grid(row = 1, column = 0, padx = 5, pady = 5)
-        DifferencialButton.grid(row = 2, column = 0, padx = 5, pady = 5)
-        IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 5)
+        MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 20)
+        VisGrafButton.grid(row = 1, column = 0, padx = 5, pady = 20)
+        DifferencialButton.grid(row = 2, column = 0, padx = 5, pady = 20)
+        IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 20)
+        Differencialx1000Button.grid(row = 4, column = 0, padx = 5, pady = 20)
         
 
         #Hvilken side programmet skal starte i

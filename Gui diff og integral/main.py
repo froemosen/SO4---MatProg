@@ -63,7 +63,7 @@ class Differencial(page):
     def window(self, ligningRaw, xAkseLen, xTangent):
             ligning = mesam.decode(ligningRaw)
             Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-            xerTilTangent, yerTilTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+            xerTilTangent, yerTilTangent, stigning, b = mesam.lavTangent(xAkseLen, ligning, xTangent)
             f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
             a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
             a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
@@ -79,6 +79,11 @@ class Differencial(page):
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
 
+            stigningText = tk.Label(self, text = f"Stigning for tangeten = {stigning}")
+            ligningTangentText = tk.Label(self, text = f"t(x) = {stigning}*x + ({b})")
+
+            stigningText.grid(row = 7, column = 0, padx = 5, pady = 10)
+            ligningTangentText.grid(row = 8, column = 0, padx = 5, pady = 10)
 
 
 class Intergral(page):
@@ -97,7 +102,7 @@ class Differencialx1000(page):
 #Laver variabler til knapper.
 class MainFrame(tk.Frame):
     def __init__(self, *args, **kwargs):
-        tk.Frame.__init__(self, *args, **kwargs, bg = '#bcc8e8', )
+        tk.Frame.__init__(self, *args, **kwargs, bg = '#bcc8e8')
         MainMenuWindow = MainMenu(self)
         VisGrafWindow = VisGraf(self)
         DifferencialWindow = Differencial(self)

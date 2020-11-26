@@ -79,8 +79,8 @@ class Differencial(page):
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
 
-            stigningText = tk.Label(self, text = f"Stigning for tangeten = {stigning}")
-            ligningTangentText = tk.Label(self, text = f"t(x) = {stigning}*x + ({b})")
+            stigningText = tk.Label(self, text = f"Stigning for tangeten = {round(stigning, 5)}")
+            ligningTangentText = tk.Label(self, text = f"t(x) = {round(stigning, 2)}x + ({round(b, 2)})")
 
             stigningText.grid(row = 7, column = 0, padx = 5, pady = 10)
             ligningTangentText.grid(row = 8, column = 0, padx = 5, pady = 10)
@@ -150,5 +150,5 @@ if __name__ == "__main__":
     base.title("SO4 opgave")
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
-    base.wm_geometry("1000x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
+    base.wm_geometry("1100x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
     base.mainloop()

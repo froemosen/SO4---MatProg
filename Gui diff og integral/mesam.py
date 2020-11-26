@@ -135,7 +135,7 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
                 topTangentY = stigning*-(xAkseLen)+b
                 print("\nHældningstal i punkt:  a =", stigning)
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x
-                return ([bundTangentX, topTangentX], [bundTangentY, topTangentY])
+                return ([bundTangentX, topTangentX], [bundTangentY, topTangentY], stigning, b)
                 break
 
             prevStigning = stigning

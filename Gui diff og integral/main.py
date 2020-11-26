@@ -27,13 +27,7 @@ class VisGraf(page):
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs)
-
-        #ligningRaw = str(int())
-        #xAkseLen = str(int())
-        #xTangent = str(int())
-        
-         
+        page.__init__(self, *args, **kwargs)  
         
         text = tk.Label(self, text = "Skriv en ligning")
         self.ligningInput = tk.Entry(self)
@@ -46,9 +40,6 @@ class Differencial(page):
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
 
-        
-
-
 
         text.grid(row = 0, column = 0, padx = 5, pady = 5)
         self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
@@ -57,6 +48,7 @@ class Differencial(page):
         text3.grid(row = 4, column = 0, padx = 5, pady = 5)
         self.xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5)
         btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
+
 
     def get(self):
             ligningRaw = str(self.ligningInput.get())
@@ -84,6 +76,8 @@ class Differencial(page):
             toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
+
+
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):

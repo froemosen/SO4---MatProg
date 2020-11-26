@@ -55,7 +55,7 @@ class Differencial(page):
             ligning = mesam.decode(ligningRaw)
             Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
             xerTilTangent, yerTilTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-            f = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            f = Figure(figsize=(9, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
             a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
             a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
             a.plot(xerTilTangent, yerTilTangent, "-m") #TangentLinje
@@ -66,34 +66,10 @@ class Differencial(page):
             canvas.draw() #Tegner grafen ud fra givet argumenter
             canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
-            toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
+            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+            toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
-
-            canvas.get_tk_widget().grid(row = 1, column = 101, rowspan = 3)
-
-
-
-        """
-        ligningRaw = input()
-        xAkseLen = int(input())
-        xTangent = float(input())
-        
-
-        ligning = mesam.decode(ligningRaw)
-        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-        
-        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
-        Ligning = tk.Entry(self, textvariable = ligningRaw)
-
-        text2 = tk.Label(self, text = "Vælg en x-værdi")
-        xAksen = tk.Entry(self, textvariable = xAkseLen)
-
-        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
-        Tangent = tk.Entry(self, textvariable = xTangent)
-
-        btn_beregn = tk.Button(self, text = "Tegn og beregn")
-        """
+)
 
         text.grid(row = 0, column = 0, padx = 5, pady = 5)
         ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)

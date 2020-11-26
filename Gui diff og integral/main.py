@@ -25,7 +25,46 @@ class MainMenu(page):
 
 class VisGraf(page):
     def __init__(self, *args, **kwargs):
-        page.__init__(self,*args, **kwargs)
+        page.__init__(self, *args, **kwargs)  
+        
+        text = tk.Label(self, text = "Skriv en ligning")
+        self.ligningInput = tk.Entry(self)
+
+        text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        self.xAkseLenInput = tk.Entry(self)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
+
+
+        text.grid(row = 0, column = 0, padx = 5, pady = 5)
+        self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
+        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
+        self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
+        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
+
+
+    def get(self):
+            ligningRaw = str(self.ligningInput.get())
+            xAkseLen = int(self.xAkseLenInput.get())
+
+            self.window(ligningRaw, xAkseLen)
+
+
+    def window(self, ligningRaw, xAkseLen):
+            ligning = mesam.decode(ligningRaw)
+            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+            f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+            # (Grafen autoscaler)
+            #tangent = f.add_subplot(111)
+            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas.draw() #Tegner grafen ud fra givet argumenter
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+
+            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+            toolbar.grid(row = 101, column = 1)
+            toolbar.update() #tjekker om den bliver brugt
 
 class Differencial(page):
     def __init__(self, *args, **kwargs):
@@ -79,11 +118,13 @@ class Differencial(page):
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
 
-            stigningText = tk.Label(self, text = f"Stigning for tangeten = {round(stigning, 5)}")
-            ligningTangentText = tk.Label(self, text = f"t(x) = {round(stigning, 2)}x + ({round(b, 2)})")
+            resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
+            stigningText = tk.Label(self, text = f"Stigning for tangeten = {round(stigning, 5)}", foreground = "blue", background = "white")
+            ligningTangentText = tk.Label(self, text = f"t(x) = {round(stigning, 2)}x + ({round(b, 2)})", foreground = "blue", background = "white")
 
-            stigningText.grid(row = 7, column = 0, padx = 5, pady = 10)
-            ligningTangentText.grid(row = 8, column = 0, padx = 5, pady = 10)
+            resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
+            stigningText.grid(row = 90, column = 0, padx = 5, pady = 5)
+            ligningTangentText.grid(row = 91, column = 0, padx = 5, pady = 5)
 
 
 class Intergral(page):

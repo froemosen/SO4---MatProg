@@ -43,10 +43,10 @@ class Differencial(page):
         text = tk.Label(self, text = "Skriv en ligning")
         ligningInput = tk.Entry(self)
 
-        text2 = tk.Label(self, text = "Vælg en x-værdi (Punkt hvor du vil finde hældning)")
+        text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
         xAkseLenInput = tk.Entry(self)
 
-        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        text3 = tk.Label(self, text = "Vælg en x-værdi (Punkt hvor du vil finde hældning)")
         xTangentInput = tk.Entry(self)
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = get)
@@ -64,12 +64,13 @@ class Differencial(page):
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 5, rowspan = 6) #Smider det ind i vinduet
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
             toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
             toolbar.update() #tjekker om den bliver brugt
 
-            canvas.get_tk_widget().grid(row = 7, column = 5, rowspan = 3)
+            canvas.get_tk_widget().grid(row = 1, column = 101, rowspan = 3)
+
 
 
         """

@@ -50,6 +50,7 @@ tkinter.mainloop()
 
 import mesam
 import sympy
+import numpy
 import matplotlib.pyplot as plt
 
 ligning = sympy.sympify("x**2")
@@ -64,9 +65,23 @@ print("areal:", areal)
 print("deltax:", deltax)
 
 plt.plot([x0, x0], [0, ligning.subs(dict(x=x0))], "-b")
+
+print(len(xValues))
+print(len(yValues))
+
+for linje in range(8):
+    xLinje = xValues[int(len(xValues)*(linje+1)/8)]
+    yLinje = yValues[int(len(yValues)*(linje+1)/8)]
+    print(int(len(yValues)*(linje+1)/8))
+    plt.plot([xLinje, xLinje], [0, yLinje])
+  
 plt.plot([x1, x1], [0, ligning.subs(dict(x=x1))], "-b")
 
-
+"""
+xValuesFill = numpy.linspace(x0, x1)
+yValuesFill = numpy.array(yValues, dtype=float)
+plt.fill_between(xValuesFill, yValuesFill, 0, color="blue")
+"""
 
 #plt.fill(xValues, yValues, zorder=10)
 

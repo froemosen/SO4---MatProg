@@ -21,41 +21,87 @@ class MainMenu(page):
         text2 = tk.Label(self, text = "intro til opgaven")
         text2.pack(side = "top", fill = "both", expand = True)
 
-class Differencial(page):
-    def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs, bg="green")
-
-        text = tk.Label(self, text = "Skriv en ligning")
-        entry = tk.Entry(self)
-
-        text2 = tk.Label(self, text = "Vælg en x-værdi")
-        entry2 = tk.Entry(self)
-
-        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
-        entry3 = tk.Entry(self)
-
-        btn_beregn = tk.Button(self, text = "Tegn og beregn")
-
-        window = tk.Label(self, text = "Whatever", bg = "red", )
-
-        window2 = tk.Label(self, text = "Whatever", bg = "blue", )
-
-        text.grid(row = 0, column = 0, padx = 5, pady = 5,)
-        entry.grid(row = 1, column = 0, padx = 5, pady = 5,)
-        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
-        entry2.grid(row = 3, column = 0, padx = 5, pady = 5,)
-        text3.grid(row = 4, column = 0, padx = 5, pady = 5,)
-        entry3.grid(row = 5, column = 0, padx = 5, pady = 5,)
-        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5,)
-
-        window.grid(row = 7, column = 5)
-        window2.grid(row = 7, column = 6)
-        window.place(relx = 0.5, rely = 0.5)
-
 class VisGraf(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self,*args, **kwargs)
+
+class Differencial(page):
+    def __init__(self, *args, **kwargs):
+        page.__init__(self, *args, **kwargs)
+
+        #ligningRaw = str(int())
+        #xAkseLen = str(int())
+        #xTangent = str(int())
         
+        def get():
+            ligningRaw = str(ligningInput.get())
+            xAkseLen = int(xAkseLenInput.get())
+            xTangent = float(xTangentInput.get())
+
+            window(ligningRaw, xAkseLen, xTangent) 
+        
+        text = tk.Label(self, text = "Skriv en ligning")
+        ligningInput = tk.Entry(self)
+
+        text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        xAkseLenInput = tk.Entry(self)
+
+        text3 = tk.Label(self, text = "Vælg en x-værdi (Punkt hvor du vil finde hældning)")
+        xTangentInput = tk.Entry(self)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn", command = get)
+
+        def window(ligningRaw, xAkseLen, xTangent):
+            ligning = mesam.decode(ligningRaw)
+            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+            xerTilTangent, yerTilTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+            f = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+            a.plot(xerTilTangent, yerTilTangent, "-m") #TangentLinje
+            a.plot(xTangent, mesam.sympy.sympify(ligning.subs(dict(x=xTangent))), "m*")
+            # (Grafen autoscaler)
+            #tangent = f.add_subplot(111)
+            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas.draw() #Tegner grafen ud fra givet argumenter
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+
+            toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
+            toolbar.update() #tjekker om den bliver brugt
+
+            canvas.get_tk_widget().grid(row = 1, column = 101, rowspan = 3)
+
+
+
+        """
+        ligningRaw = input()
+        xAkseLen = int(input())
+        xTangent = float(input())
+        
+
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
+        
+        text = tk.Label(self, text = "Skriv en ligning", bg = "red")
+        Ligning = tk.Entry(self, textvariable = ligningRaw)
+
+        text2 = tk.Label(self, text = "Vælg en x-værdi")
+        xAksen = tk.Entry(self, textvariable = xAkseLen)
+
+        text3 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        Tangent = tk.Entry(self, textvariable = xTangent)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn")
+        """
+
+        text.grid(row = 0, column = 0, padx = 5, pady = 5)
+        ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
+        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
+        xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
+        text3.grid(row = 4, column = 0, padx = 5, pady = 5)
+        xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5)
+        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
 
 class Intergral(page):
     def __init__(self, *args, **kwargs):
@@ -64,76 +110,38 @@ class Intergral(page):
         text.pack(side = "top", fill = "both", expand = True)
 
 
-class Graf(page):
-    def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs)
-        #input -> str(ligning)
-        #ligningRaw = #input
-        #input -> int(xAkseLen)
-        #xAkselen = #input
-
-        #Midlertidig!!
-        ligningRaw = input("Indtast ligning: ")
-        xAkseLen = int(input("Længde på x-akse i begge retninger: "))
-        xTangent = float(input("Punkt til tangent: "))
-
-        ligning = mesam.decode(ligningRaw)
-        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-        xTangent, yTangent = mesam.lavTangent(xAkseLen, ligning, xTangent)
-
-        f = Figure(figsize=(4, 4), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
-        a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-        a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
-        a.plot(xTangent, yTangent)
-        # (Grafen autoscaler)
-        #tangent = f.add_subplot(111)
-        #tangent.plot()
-
-        canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, freksempel størelse)
-        canvas.draw() #Tegner grafen ud fra givet argumenter
-        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
-
-        toolbar = NavigationToolbar2Tk(canvas, self) #Tager imod de relevante argumenter og info
-        toolbar.update() #tjekker om den bliver brugt
-        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True) #Smider det ind i vinduet
-
-
 #Laver variabler til knapper.
 class MainFrame(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
         MainMenuWindow = MainMenu(self)
-        DifferencialWindow = Differencial(self)
         VisGrafWindow = VisGraf(self)
+        DifferencialWindow = Differencial(self)
         IntergralWindow = Intergral(self)
-        GrafWindow = Graf(self)
  
         #Laver vi kasser til selve knapperne.
-        ButtonFrame = tk.Frame(self , bg = "yellow")
+        ButtonFrame = tk.Frame(self,)
         Box = tk.Frame(self,)
-        ButtonFrame.pack(side = "left", fill = "y", expand= False)
+        ButtonFrame.pack(side = "left", fill = "x", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 
         #Placering for kasserne
         MainMenuWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
-        DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         VisGrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
+        DifferencialWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
-        GrafWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
         #Selve knapperne bliver lavet
         MainMenuButton = tk.Button(ButtonFrame, text = "Main Menu", command = MainMenuWindow.lift)
-        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
         VisGrafButton = tk.Button(ButtonFrame, text = "Vis Graf", command = VisGrafWindow.lift)
+        DifferencialButton = tk.Button(ButtonFrame, text = "Differencial Regning", command = DifferencialWindow.lift)
         IntergralButton = tk.Button(ButtonFrame, text = "Intergral Regning",  command = IntergralWindow.lift)
-        GrafButton = tk.Button(ButtonFrame, text = "Graf", command = GrafWindow.lift)
 
 
         MainMenuButton.grid(row = 0, column = 0, padx = 5, pady = 5,)
-        DifferencialButton.grid(row = 1, column = 0, padx = 5, pady = 5)
-        VisGrafButton.grid(row = 2, column = 0, padx = 5, pady = 5)
+        VisGrafButton.grid(row = 1, column = 0, padx = 5, pady = 5)
+        DifferencialButton.grid(row = 2, column = 0, padx = 5, pady = 5)
         IntergralButton.grid(row = 3, column = 0, padx = 5, pady = 5)
-        GrafButton.grid(row = 4, column = 0, padx = 5, pady = 5)
         
 
         #Hvilken side programmet skal starte i
@@ -146,4 +154,4 @@ if __name__ == "__main__":
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
     base.wm_geometry("1000x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
-    base.mainloop() 
+    base.mainloop()

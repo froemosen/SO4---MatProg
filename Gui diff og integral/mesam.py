@@ -71,8 +71,8 @@ def decode(ligningRaw):
     except:
         return 0
         pass #FJERN SENERE
-        #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")
-    
+        #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")   
+
 
 def printGraf(ligningReady, xakselen):
     xAkseLen = abs(int(xakselen))
@@ -149,11 +149,53 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
         print("Tangentensligning:     t(x) = " + str(prevStigning)+"x"+str(prevB)) #Nyt symbol i stedet for x?
 
 
-def integral(xakselen, ligningReady, minX, maxX):
-    xAkseLen = abs(int(xakselen))
-    deltax = maxX-minX
+def integral(ligningReady, minX, maxX):
+    n = maxX-minX
+    
+    steps = 1
+    
+    xValues = []
+    yValues = []
 
+    currentX = maxX
+    currentA = 0
+    prevA = 7
 
+    for i in range(13):
+        deltax = n/steps
 
-    for i in range(200):
-        pass
+        for stepNo in range(steps): #Find værdier for x og y
+            if stepNo == 0:
+                xValues.append(maxX)
+                yValues.append(ligningReady.subs(dict(x=maxX)))
+            else:
+                xValues.append(maxX+(deltax*stepNo))
+                yValues.append(ligningReady.subs(dict(x=maxX-deltax*stepNo)))
+
+        for value in yValues: #Udregn currentA
+            individuelAreal = deltax*value
+            currentA += individuelAreal
+
+        print(currentA)
+        if abs(currentA-prevA) < 10**(-3): #Tjek om areal er tilpas tæt på egentlige areal
+            areal = currentA
+            break
+
+        if i == 12:
+            pass
+        else:
+            xValues.clear()
+            yValues.clear()
+            currentA = 0
+
+            steps *= 2
+
+    
+    return (xValues, yValues, currentA, deltax)
+
+    #Liste med x'er
+    #Lister med y'er (Y_2)
+    #Y_1 = 0
+    #Gab = deltax/opdeling
+    #Areal
+    #https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between

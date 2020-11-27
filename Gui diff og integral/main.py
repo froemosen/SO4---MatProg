@@ -67,6 +67,7 @@ class VisGraf(page):
             toolbar.update() #tjekker om den bliver brugt
 
 class Differencial(page):
+
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)  
         

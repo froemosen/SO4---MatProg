@@ -76,22 +76,23 @@ def decode(ligningRaw):
 
 def printGraf(ligningReady, xakselen):
     xAkseLen = abs(int(xakselen))
+    perX = 100/xAkseLen+5
     newx = -xAkseLen
     xValues = []
     yValues = []
     #plt.grid() #VI VED IKKE OM VI STADIG BRUGER PLT
-    for value in range(xAkseLen*20*2):
+    for value in range(int(xAkseLen*perX*2)):
         try:
             oldx = newx
             oldfx = ligningReady.subs(dict(x=oldx))
             print("oldfx:",oldfx)
-            newx = oldx+1/20
+            newx = oldx+1/perX
             newfx = ligningReady.subs(dict(x=newx))
             print("newfx:",newfx)
 
             if abs(newfx) < abs((oldfx+50)*1000) and abs(oldfx) < abs((newfx+50)*1000): #Er med til at gøre grafen mere brugervenlig, da den sorterer helt vildt høje/lave y-værdier fra
-                xValues.append(newx)
-                yValues.append(newfx)
+                xValues.append(float(newx))
+                yValues.append(float(newfx))
             else:
                 pass
         except:

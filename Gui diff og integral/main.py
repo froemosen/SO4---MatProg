@@ -56,25 +56,26 @@ class VisGraf(page):
         self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
         text2.grid(row = 2, column = 0, padx = 30, pady = 5,)
         self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
-        btn_beregn.grid(row = 6, column = 0, padx = 30, pady = 5)        
+        btn_beregn.grid(row = 6, column = 0, padx = 30, pady = 5)    
+
+        self.f = Figure(figsize=(10, 7), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+        self.a = self.f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje 
+
+        self.updateGraph()  
 
 
     def get(self):
             ligningRaw = str(self.ligningInput.get())
             xAkseLen = int(self.xAkseLenInput.get())
 
-            self.window(ligningRaw, xAkseLen)
+            self.showGraph(ligningRaw, xAkseLen)
+            self.updateGraph()
 
 
-    def window(self, ligningRaw, xAkseLen):
-            ligning = mesam.decode(ligningRaw)
-            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-            f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
-            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+    def updateGraph(self):
             # (Grafen autoscaler)
             #tangent = f.add_subplot(111)
-            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas = FigureCanvasTkAgg(self.f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
             canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
@@ -82,8 +83,13 @@ class VisGraf(page):
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
 
-class Differencial(page):
+    def showGraph(self, ligningRaw, xAkseLen):
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+            
+        self.a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
 
+class Differencial(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)  
         
@@ -105,46 +111,63 @@ class Differencial(page):
         self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
         text3.grid(row = 4, column = 0, padx = 20, pady = 5)
         self.xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5)
-        btn_beregn.grid(row = 6, column = 0, padx = 20, pady = 5)        
+        btn_beregn.grid(row = 6, column = 0, padx = 20, pady = 5)       
+
+        self.defineGraph()
+        self.updateGraph()
 
 
     def get(self):
-            ligningRaw = str(self.ligningInput.get())
-            xAkseLen = int(self.xAkseLenInput.get())
-            xTangent = float(self.xTangentInput.get())
+        ligningRaw = str(self.ligningInput.get())
+        xAkseLen = int(self.xAkseLenInput.get())
+        xTangent = float(self.xTangentInput.get())
 
-            self.window(ligningRaw, xAkseLen, xTangent)
+        self.defineGraph()
+        self.showGraph(ligningRaw, xAkseLen, xTangent)
+        self.updateGraph()
 
+    def defineGraph(self):
+        self.f = Figure(figsize=(9, 7), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+        self.a = self.f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
 
-    def window(self, ligningRaw, xAkseLen, xTangent):
-            ligning = mesam.decode(ligningRaw)
-            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-            xerTilTangent, yerTilTangent, stigning, b = mesam.lavTangent(xAkseLen, ligning, xTangent)
-            f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
-            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
-            a.plot(xerTilTangent, yerTilTangent, "-m") #TangentLinje
-            a.plot(xTangent, mesam.sympy.sympify(ligning.subs(dict(x=xTangent))), "m*")
-            # (Grafen autoscaler)
-            #tangent = f.add_subplot(111)
-            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
-            canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+    def updateGraph(self):       
+        # (Grafen autoscaler)
+        #tangent = f.add_subplot(111)
+        canvas = FigureCanvasTkAgg(self.f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+        canvas.draw() #Tegner grafen ud fra givet argumenter
+        canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
-            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
-            toolbar.grid(row = 101, column = 1)
-            toolbar.update() #tjekker om den bliver brugt
+        toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+        toolbar.grid(row = 101, column = 1)
+        toolbar.update() #tjekker om den bliver brugt
+      
 
-            stigningToPrint = "{:.2f}".format(round(stigning, 2))
-            bToPrint = "{:.2f}".format(round(b, 2))
+    def showGraph(self, ligningRaw, xAkseLen, xTangent):
+        try: #Fjern tidligere labels
+            self.resultaterText.destroy()
+            self.stigningText.destroy()
+            self.ligningTangentText.destroy()
+        except:
+            pass
 
-            resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
-            stigningText = tk.Label(self, text = f"Stigning for tangeten = {stigningToPrint}", foreground = "blue", background = "white")
-            ligningTangentText = tk.Label(self, text = f"t(x) = {stigningToPrint}x + {bToPrint}", foreground = "blue", background = "white")
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+        xerTilTangent, yerTilTangent, stigning, b = mesam.lavTangent(xAkseLen, ligning, xTangent)
 
-            resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
-            stigningText.grid(row = 90, column = 0, padx = 5, pady = 5)
-            ligningTangentText.grid(row = 91, column = 0, padx = 5, pady = 5)
+        self.a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+        self.a.plot(xerTilTangent, yerTilTangent, "-m") #TangentLinje
+        self.a.plot(xTangent, mesam.sympy.sympify(ligning.subs(dict(x=xTangent))), "m*")
+
+        stigningToPrint = "{:.2f}".format(round(stigning, 2))
+        bToPrint = "{:.2f}".format(round(b, 2))
+
+        self.resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
+        self.stigningText = tk.Label(self, text = f"Stigning for tangeten = {stigningToPrint}", foreground = "blue", background = "white")
+        self.ligningTangentText = tk.Label(self, text = f"t(x) = {stigningToPrint}x + {bToPrint}", foreground = "blue", background = "white")
+
+        self.resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
+        self.stigningText.grid(row = 90, column = 0, padx = 5, pady = 5)
+        self.ligningTangentText.grid(row = 91, column = 0, padx = 5, pady = 5)
 
 
 class Intergral(page):
@@ -157,10 +180,10 @@ class Intergral(page):
         text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
         self.xAkseLenInput = tk.Entry(self)
 
-        text3 = tk.Label(self, text = "Laveste x-værdi")
+        text3 = tk.Label(self, text = "Laveste x-værdi (til areal)")
         self.minXInput = tk.Entry(self)
 
-        text4 = tk.Label(self, text = "Højeste x-værdi")
+        text4 = tk.Label(self, text = "Højeste x-værdi (til areal)")
         self.maxXInput = tk.Entry(self)
 
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
@@ -174,49 +197,66 @@ class Intergral(page):
         self.minXInput.grid(row = 5, column = 0, padx = 5, pady = 5)
         text4.grid(row = 6, column = 0, padx = 20, pady = 5)
         self.maxXInput.grid(row = 7, column = 0, padx = 5, pady = 5)
-        btn_beregn.grid(row = 8, column = 0, padx = 20, pady = 5)        
+        btn_beregn.grid(row = 8, column = 0, padx = 20, pady = 5)
 
+          
+        self.defineGraph()
+        self.updateGraph()     
+
+    def defineGraph(self):
+        self.f = Figure(figsize=(10, 7), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+        self.a = self.f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+        self.a.grid() 
 
     def get(self):
-            ligningRaw = str(self.ligningInput.get())
-            xAkseLen = int(self.xAkseLenInput.get())
-            minX = float(self.minXInput.get())
-            maxX = float(self.maxXInput.get())
+        ligningRaw = str(self.ligningInput.get())
+        xAkseLen = int(self.xAkseLenInput.get())
+        minX = float(self.minXInput.get())
+        maxX = float(self.maxXInput.get())
 
-            self.window(ligningRaw, xAkseLen, minX, maxX)
+        self.defineGraph()
+        self.showGraph(ligningRaw, xAkseLen, minX, maxX)
+        self.updateGraph()
 
 
-    def window(self, ligningRaw, xAkseLen, minX, maxX):
-            ligning = mesam.decode(ligningRaw)
-            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
-            XvaluesIntegral, YvaluesIntegral, areal, n = mesam.integral(ligning, minX, maxX)
-            n += 10
-            f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
-            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-            a.grid()
-            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
-            for linje in range(int(n*2)):
-                xLinje = XvaluesIntegral[int((len(XvaluesIntegral)-1)*(linje+1)/(n*2))]
-                yLinje = YvaluesIntegral[int((len(YvaluesIntegral)-1)*(linje+1)/(n*2))]
-                a.plot([xLinje, xLinje], [0, yLinje], "-m")
-            # (Grafen autoscaler)
-            #tangent = f.add_subplot(111)
-            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
-            canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+    def updateGraph(self):
+        canvas = FigureCanvasTkAgg(self.f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+        canvas.draw() #Tegner grafen ud fra givet argumenter
+        canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
-            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
-            toolbar.grid(row = 101, column = 1)
-            toolbar.update() #tjekker om den bliver brugt
+        toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+        toolbar.grid(row = 101, column = 1)
+        toolbar.update() #tjekker om den bliver brugt
 
-            arealToPrint = "{:.2f}".format(round(areal, 2))
-            #bToPrint = "{:.2f}".format(round(b, 2))
+            
 
-            resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
-            arealText = tk.Label(self, text = f"Areal under kurven = {arealToPrint}", foreground = ((191, 0, 191)), background = "white")
+    def showGraph(self, ligningRaw, xAkseLen, minX, maxX):
+        try: #Fjern tidligere labels
+            self.resultaterText.destroy()
+            self.arealText.destroy()
+        except:
+            pass
 
-            resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
-            arealText.grid(row = 90, column = 0, padx = 5, pady = 5)
+        ligning = mesam.decode(ligningRaw)
+        Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+        XvaluesIntegral, YvaluesIntegral, areal, n = mesam.integral(ligning, minX, maxX)
+
+        n += 10
+
+        self.graf = self.a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+        for linje in range(int(n*2)):
+            xLinje = XvaluesIntegral[int((len(XvaluesIntegral)-1)*(linje+1)/(n*2))]
+            yLinje = YvaluesIntegral[int((len(YvaluesIntegral)-1)*(linje+1)/(n*2))]
+            self.tangent = self.a.plot([xLinje, xLinje], [0, yLinje], "-m")
+
+        arealToPrint = "{:.2f}".format(round(areal, 2))
+
+        self.resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
+        #resultaterText(text = "hej")
+        self.arealText = tk.Label(self, text = f"Areal under kurven = {arealToPrint}", foreground = "magenta3", background = "white")
+
+        self.resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
+        self.arealText.grid(row = 90, column = 0, padx = 5, pady = 5)
 
 class Differencialx1000(page):
     def __init__(self, *args, **kwargs):
@@ -242,16 +282,17 @@ class Differencialx1000(page):
             ligningRaw = str(self.ligningInput.get())
             xAkseLen = int(self.xAkseLenInput.get())
 
-            self.window(ligningRaw, xAkseLen)
+            self.showGraph(ligningRaw, xAkseLen)
+            self.updateGraph()
 
 
-    def window(self, ligningRaw, xAkseLen):
+    def updateGraph(self, ligningRaw, xAkseLen):
             ligning = mesam.decode(ligningRaw)
             XvaluesNormal, YvaluesNormal = mesam.printGraf(ligning, xAkseLen)
-            f1 = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
-            f1.text(10, 10, "Strækning over tid")
-            a = f1.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
-            a.plot(XvaluesNormal, YvaluesNormal)  #Den data der bliver plottet på grafen
+            self.f1 = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            self.f1.text(10, 10, "Strækning over tid")
+            self.a = f1.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            self.a.plot(XvaluesNormal, YvaluesNormal)  #Den data der bliver plottet på grafen
             # (Grafen autoscaler)
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f1, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)

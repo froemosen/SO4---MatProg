@@ -36,11 +36,11 @@ class VisGraf(page):
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
 
 
-        text.grid(row = 0, column = 0, padx = 5, pady = 5)
+        text.grid(row = 0, column = 0, padx = 30, pady = 5)
         self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
-        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
+        text2.grid(row = 2, column = 0, padx = 30, pady = 5,)
         self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
-        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
+        btn_beregn.grid(row = 6, column = 0, padx = 30, pady = 5)        
 
 
     def get(self):
@@ -83,13 +83,13 @@ class Differencial(page):
         btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
 
 
-        text.grid(row = 0, column = 0, padx = 5, pady = 5)
+        text.grid(row = 0, column = 0, padx = 20, pady = 5)
         self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
-        text2.grid(row = 2, column = 0, padx = 5, pady = 5,)
+        text2.grid(row = 2, column = 0, padx = 20, pady = 5,)
         self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
-        text3.grid(row = 4, column = 0, padx = 5, pady = 5)
+        text3.grid(row = 4, column = 0, padx = 20, pady = 5)
         self.xTangentInput.grid(row = 5, column = 0, padx = 5, pady = 5)
-        btn_beregn.grid(row = 6, column = 0, padx = 5, pady = 5)        
+        btn_beregn.grid(row = 6, column = 0, padx = 20, pady = 5)        
 
 
     def get(self):
@@ -113,15 +113,18 @@ class Differencial(page):
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100, sticky = "n, e, s, w") #Smider det ind i vinduet
 
             toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
             toolbar.grid(row = 101, column = 1)
             toolbar.update() #tjekker om den bliver brugt
 
+            stigningToPrint = "{:.2f}".format(round(stigning, 2))
+            bToPrint = "{:.2f}".format(round(b, 2))
+
             resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
-            stigningText = tk.Label(self, text = f"Stigning for tangeten = {round(stigning, 5)}", foreground = "blue", background = "white")
-            ligningTangentText = tk.Label(self, text = f"t(x) = {round(stigning, 2)}x + ({round(b, 2)})", foreground = "blue", background = "white")
+            stigningText = tk.Label(self, text = f"Stigning for tangeten = {stigningToPrint}", foreground = "blue", background = "white")
+            ligningTangentText = tk.Label(self, text = f"t(x) = {stigningToPrint}x + {bToPrint}", foreground = "blue", background = "white")
 
             resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
             stigningText.grid(row = 90, column = 0, padx = 5, pady = 5)

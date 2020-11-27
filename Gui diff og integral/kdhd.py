@@ -2,12 +2,12 @@ import tkinter as tk
 
 root =tk.Tk()
 
-canvas = tk.Canvas(root, width = 400, height = 400,)
+canvas = tk.Canvas(root, width = 1800, height = 800,)
 
 
-img = tk.PhotoImage(file = "Gui diff og integral/fodboldja.png")
+img = tk.PhotoImage(file = "Gui diff og integral/aarhustech.png")
 
-canvas.create_image(100,100, image=img)
+canvas.create_image(900,400, image=img)
 
 canvas.pack()
 tk.mainloop()

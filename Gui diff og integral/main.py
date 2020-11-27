@@ -29,10 +29,15 @@ class MainMenu(page):
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
         #---billed---
-        canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')
-        img = tk.PhotoImage(file = "Gui diff og integral/grafbilledlille.png")
-        canvas.create_image(125,50, image=img)
-        canvas.pack()
+        image = tk.PhotoImage(file='Gui diff og integral/aarhustechSmol.png')
+        button = tk.Button(self, image=image)
+        button.pack()
+        #canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')
+        #img = tk.PhotoImage(file = "Gui diff og integral/grafbilledlille.png")
+        #canvas.create_image(125,50, image=img)
+        #canvas.pack()
+
+        #self.show()
 
 class VisGraf(page):
     def __init__(self, *args, **kwargs):
@@ -209,16 +214,71 @@ class Intergral(page):
 
             resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
             arealText = tk.Label(self, text = f"Areal under kurven = {arealToPrint}", foreground = ((191, 0, 191)), background = "white")
-            
 
             resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
             arealText.grid(row = 90, column = 0, padx = 5, pady = 5)
 
 class Differencialx1000(page):
     def __init__(self, *args, **kwargs):
-        page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "General Konobi!!!")
-        text.pack(side = "top", fill = "both", expand = True)
+        page.__init__(self, *args, **kwargs) 
+        
+        text = tk.Label(self, text = "Skriv en ligning")
+        self.ligningInput = tk.Entry(self)
+
+        text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        self.xAkseLenInput = tk.Entry(self)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
+
+
+        text.grid(row = 0, column = 0, padx = 30, pady = 5)
+        self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
+        text2.grid(row = 2, column = 0, padx = 30, pady = 5,)
+        self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
+        btn_beregn.grid(row = 6, column = 0, padx = 30, pady = 5)        
+
+
+    def get(self):
+            ligningRaw = str(self.ligningInput.get())
+            xAkseLen = int(self.xAkseLenInput.get())
+
+            self.window(ligningRaw, xAkseLen)
+
+
+    def window(self, ligningRaw, xAkseLen):
+            ligning = mesam.decode(ligningRaw)
+            XvaluesNormal, YvaluesNormal = mesam.printGraf(ligning, xAkseLen)
+            f1 = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            f1.text(10, 10, "Strækning over tid")
+            a = f1.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            a.plot(XvaluesNormal, YvaluesNormal)  #Den data der bliver plottet på grafen
+            # (Grafen autoscaler)
+            #tangent = f.add_subplot(111)
+            canvas = FigureCanvasTkAgg(f1, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas.draw() #Tegner grafen ud fra givet argumenter
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100, columnspan = 2) #Smider det ind i vinduet
+
+            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+            toolbar.grid(row = 101, column = 1, columnspan = 2)
+            toolbar.update() #tjekker om den bliver brugt
+
+
+
+            ligning = mesam.decode(ligningRaw)
+            XvaluesStigning, YvaluesStigning = mesam.differencialx1000(ligning, xAkseLen)
+            f2 = Figure(figsize=(5, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            f1.text(10, 10, "Hastighed over tid")
+            a = f2.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            a.plot(XvaluesStigning, YvaluesStigning)  #Den data der bliver plottet på grafen
+            # (Grafen autoscaler)
+            #tangent = f.add_subplot(111)
+            canvas = FigureCanvasTkAgg(f2, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas.draw() #Tegner grafen ud fra givet argumenter
+            canvas.get_tk_widget().grid(row = 0, column = 3, rowspan = 100, columnspan = 2) #Smider det ind i vinduet
+
+            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+            toolbar.grid(row = 101, column = 3, columnspan = 2)
+            toolbar.update() #tjekker om den bliver brugt
 
 
 #Laver variabler til knapper.
@@ -245,7 +305,6 @@ class MainFrame(tk.Frame):
         IntergralWindow.place(in_= Box, x = 0, y = 0, relwidth = 1, relheight = 1)
         Differencialx1000Window.place(in_ = Box, x = 0, y = 0, relwidth = 1, relheight = 1)
 
-
         options = tk.Label(ButtonFrame, text = "Options", bg = '#bcc8e8')
         options.config(font=("Courier", 20), bg = '#bcc8e8')
         #Selve knapperne bliver lavet
@@ -262,7 +321,6 @@ class MainFrame(tk.Frame):
         IntergralButton.grid(row = 4, column = 0, padx = 5, pady = 20)
         Differencialx1000Button.grid(row = 5, column = 0, padx = 5, pady = 20)
         
-
         #Hvilken side programmet skal starte i
         MainMenuWindow.show()
 
@@ -272,5 +330,5 @@ if __name__ == "__main__":
     base.title("SO4 opgave")
     main = MainFrame(base)
     main.pack(side = "top", fill = "both", expand = True)
-    base.wm_geometry("1100x500") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
+    base.wm_geometry("1200x600") #Vi skal definer en størrelse fordi siden ville collapse ind på kasserne til knapperne 
     base.mainloop()

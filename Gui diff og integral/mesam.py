@@ -62,9 +62,9 @@ def decode(ligningRaw):
 
             noInList += 1
 
-        #print("Ligning før omdannelse: "+ligningString)
+        print("Ligning før omdannelse: "+ligningString)
         ligningReady = sympy.sympify(ligningString)
-        #print("Ligningen i python-sprog: ", ligningReady)
+        print("Ligningen i python-sprog: ", ligningReady)
         return ligningReady
         
 
@@ -131,8 +131,8 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
             if abs(abs(prevStigning)-abs(stigning)) < 10**(-7):
                 bundTangentX = xAkseLen
                 topTangentX = -xAkseLen
-                bundTangentY = stigning*xAkseLen+b
-                topTangentY = stigning*-(xAkseLen)+b
+                bundTangentY = stigning*bundTangentX+b
+                topTangentY = stigning*topTangentX+b
                 print("\nHældningstal i punkt:  a =", stigning)
                 print("Tangentensligning:     t(x) = " + str(stigning)+"x + "+str(b)) #Nyt symbol i stedet for x
                 return ([bundTangentX, topTangentX], [bundTangentY, topTangentY], stigning, b)
@@ -140,8 +140,6 @@ def lavTangent(xakselen, ligningReady, xTangent): #MANGLER AT BLIVE LAVET OM TIL
 
             prevStigning = stigning
             prevB = b
-
-            punkt = plt.plot(xTangent, ligningReady.subs(dict(x=xTangent)), "m*")
     
     except:
         print("WRONG, but still")
@@ -181,8 +179,9 @@ def integral(ligningReady, minX, maxX):
             areal = currentA
             break
 
-        if i == 12:
+        if i == 12: #Lader være med at cleare x- og y-værdierne hvis det er sidste gang funktionen køres. 
             pass
+
         else:
             xValues.clear()
             yValues.clear()
@@ -199,3 +198,49 @@ def integral(ligningReady, minX, maxX):
     #Gab = deltax/opdeling
     #Areal
     #https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between
+
+
+def differencialx1000(ligningReady, xakselen):
+    xAkseLen = int(abs(xakselen))
+    n = xAkseLen*2
+
+    minX = -xAkseLen
+    maxX = xAkseLen
+
+    xValues = []
+    yValues = []
+    
+    for run in range(int(((n+100)/(n/2))*n)): #Udregningen opdeler 1x i et vidst antal felter. Det bliver så ganget med det totale antal felter (n)
+        DELTAX = (run+1)/((n+100)/(n/2)) #Deltax i forhold til trinnet som køres
+        print(DELTAX) #Ender med at være xAkseLen*2
+        xTangent = minX+DELTAX
+        
+        deltax = abs(xTangent)*5+1 #Start deltax
+
+        x1 = xTangent-deltax/2 #Divideres med to, da nogle ligninger får samme hældningstal to gange i streg
+        x2 = xTangent+deltax
+        y1 = ligningReady.subs(dict(x=x1))
+        y2 = ligningReady.subs(dict(x=x2))
+
+
+        stigning = (y2-y1)/(x2-x1)
+        prevStigning = stigning*1.1+10
+
+        for i in range(200): #Hældningen i punkt som er fundet (Samme son lavTangent())
+            deltax /= 2
+ 
+            x1 = xTangent-deltax/2
+            x2 = xTangent+deltax
+            y1 = ligningReady.subs(dict(x=x1))
+            y2 = ligningReady.subs(dict(x=x2))
+
+            stigning = (y2-y1)/(x2-x1)
+
+            if abs(abs(prevStigning)-abs(stigning)) < 10**(-4):
+                xValues.append(xTangent)
+                yValues.append(stigning)
+                break
+            
+            prevStigning = stigning
+    print(xValues, yValues)
+    return(xValues, yValues)

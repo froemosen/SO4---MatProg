@@ -108,7 +108,7 @@ def lavTangent(xAkseLen, ligningReady):
 
     timeToPause = 0.7
 
-    x1 = xTangent-deltax
+    x1 = xTangent-deltax/2
     x2 = xTangent+deltax
     y1 = ligningReady.subs(dict(x=x1))
     y2 = ligningReady.subs(dict(x=x2))

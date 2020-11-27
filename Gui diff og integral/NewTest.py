@@ -52,8 +52,9 @@ import mesam
 import sympy
 import numpy
 import matplotlib.pyplot as plt
+from sympy import sin
 
-ligning = sympy.sympify("x**2")
+ligning = sympy.sympify("sin(x)*x")
 x0 = 10
 x1 = 14
 
@@ -64,19 +65,19 @@ xValues, yValues, areal, deltax = mesam.integral(ligning, x0, x1)
 print("areal:", areal)
 print("deltax:", deltax)
 
-plt.plot([x0, x0], [0, ligning.subs(dict(x=x0))], "-b")
+#plt.plot([x0, x0], [0, ligning.subs(dict(x=x0))], "-m")
 
 print(len(xValues))
 print(len(yValues))
 
-for linje in range(7):
-    print(int(len(yValues)*(linje+1)/8))
-    xLinje = xValues[int(len(xValues)*(linje+1)/8)]
-    yLinje = yValues[int(len(yValues)*(linje+1)/8)]
+for linje in range(32):
+    print(int((len(yValues)-1)*(linje+1)/32))
+    xLinje = xValues[int((len(xValues)-1)*(linje+1)/32)]
+    yLinje = yValues[int((len(yValues)-1)*(linje+1)/32)]
     print(xLinje, yLinje)
-    plt.plot([xLinje, xLinje], [0, yLinje])
+    plt.plot([xLinje, xLinje], [0, yLinje], "-m")
   
-plt.plot([x1, x1], [0, ligning.subs(dict(x=x1))], "-b")
+#plt.plot([x1, x1], [0, ligning.subs(dict(x=x1))], "-m")
 
 """
 xValuesFill = numpy.linspace(x0, x1)

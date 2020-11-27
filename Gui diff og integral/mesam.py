@@ -169,12 +169,12 @@ def integral(ligningReady, minX, maxX):
                 xValues.append(maxX)
                 yValues.append(ligningReady.subs(dict(x=maxX)))
             else:
-                xValues.append(maxX+(deltax*stepNo))
+                xValues.append(maxX-(deltax*stepNo))
                 yValues.append(ligningReady.subs(dict(x=maxX-deltax*stepNo)))
 
         for value in yValues: #Udregn currentA
             individuelAreal = deltax*value
-            currentA += individuelAreal
+            currentA += abs(individuelAreal)
 
         print(currentA)
         if abs(currentA-prevA) < 10**(-3): #Tjek om areal er tilpas tæt på egentlige areal

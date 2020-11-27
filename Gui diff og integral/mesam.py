@@ -191,7 +191,7 @@ def integral(ligningReady, minX, maxX):
             steps *= 2
 
     
-    return (xValues, yValues, currentA, deltax)
+    return (xValues, yValues, currentA, n)
 
     #Liste med x'er
     #Lister med y'er (Y_2)

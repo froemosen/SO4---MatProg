@@ -113,7 +113,7 @@ class Differencial(page):
             #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
-            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100, sticky = "n, e, s, w") #Smider det ind i vinduet
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
 
             toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
             toolbar.grid(row = 101, column = 1)
@@ -134,8 +134,74 @@ class Differencial(page):
 class Intergral(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
-        text = tk.Label(self, text = "General Konobi!!!")
-        text.pack(side = "top", fill = "both", expand = True)
+
+        text = tk.Label(self, text = "Skriv en ligning")
+        self.ligningInput = tk.Entry(self)
+
+        text2 = tk.Label(self, text = "Længde på x-akse i begge retninger")
+        self.xAkseLenInput = tk.Entry(self)
+
+        text3 = tk.Label(self, text = "Laveste x-værdi")
+        self.minXInput = tk.Entry(self)
+
+        text4 = tk.Label(self, text = "Højeste x-værdi")
+        self.maxXInput = tk.Entry(self)
+
+        btn_beregn = tk.Button(self, text = "Tegn og beregn", command = self.get)
+
+
+        text.grid(row = 0, column = 0, padx = 20, pady = 5)
+        self.ligningInput.grid(row = 1, column = 0, padx = 5, pady = 5)
+        text2.grid(row = 2, column = 0, padx = 20, pady = 5,)
+        self.xAkseLenInput.grid(row = 3, column = 0, padx = 5, pady = 5)
+        text3.grid(row = 4, column = 0, padx = 20, pady = 5)
+        self.minXInput.grid(row = 5, column = 0, padx = 5, pady = 5)
+        text4.grid(row = 6, column = 0, padx = 20, pady = 5)
+        self.maxXInput.grid(row = 7, column = 0, padx = 5, pady = 5)
+        btn_beregn.grid(row = 8, column = 0, padx = 20, pady = 5)        
+
+
+    def get(self):
+            ligningRaw = str(self.ligningInput.get())
+            xAkseLen = int(self.xAkseLenInput.get())
+            minX = float(self.minXInput.get())
+            maxX = float(self.maxXInput.get())
+
+            self.window(ligningRaw, xAkseLen, minX, maxX)
+
+
+    def window(self, ligningRaw, xAkseLen, minX, maxX):
+            ligning = mesam.decode(ligningRaw)
+            Xvalues, Yvalues = mesam.printGraf(ligning, xAkseLen)
+            XvaluesIntegral, YvaluesIntegral, areal, n = mesam.integral(ligning, minX, maxX)
+            n += 10
+            f = Figure(figsize=(8, 5), dpi=80) #Bestemmer størelsen af grafen sammen med nedenstående linje
+            a = f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
+            a.grid()
+            a.plot(Xvalues, Yvalues)  #Den data der bliver plottet på grafen
+            for linje in range(int(n*2)):
+                xLinje = XvaluesIntegral[int((len(XvaluesIntegral)-1)*(linje+1)/(n*2))]
+                yLinje = YvaluesIntegral[int((len(YvaluesIntegral)-1)*(linje+1)/(n*2))]
+                a.plot([xLinje, xLinje], [0, yLinje], "-m")
+            # (Grafen autoscaler)
+            #tangent = f.add_subplot(111)
+            canvas = FigureCanvasTkAgg(f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
+            canvas.draw() #Tegner grafen ud fra givet argumenter
+            canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
+
+            toolbar = NavigationToolbar2Tk(canvas, self, pack_toolbar=False) #Tager imod de relevante argumenter og info
+            toolbar.grid(row = 101, column = 1)
+            toolbar.update() #tjekker om den bliver brugt
+
+            arealToPrint = "{:.2f}".format(round(areal, 2))
+            #bToPrint = "{:.2f}".format(round(b, 2))
+
+            resultaterText = tk.Label(self, text = "Resultater", font = ("Courier", 18, "bold"))
+            arealText = tk.Label(self, text = f"Areal under kurven = {arealToPrint}", foreground = ((191, 0, 191)), background = "white")
+            
+
+            resultaterText.grid(row = 89, column = 0, padx = 0, pady = 0)
+            arealText.grid(row = 90, column = 0, padx = 5, pady = 5)
 
 class Differencialx1000(page):
     def __init__(self, *args, **kwargs):

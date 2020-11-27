@@ -15,13 +15,24 @@ class page(tk.Frame):
 class MainMenu(page):
     def __init__(self, *args, **kwargs):
         page.__init__(self, *args, **kwargs)
+
+        #---stortekst---
         text = tk.Label(self, text = "Main Menu")
         text.config(font=("Courier", 44), bg = '#bcc8e8')
         text.pack(side = "top", fill ='x')
-
+        #---lilletext---
         text2 = tk.Label(self, text = "intro til GUI'en")
         text2.config(font=("Courier", 20), bg = '#bcc8e8')
         text2.pack(side = "top", fill = "x")
+        #---infotext---
+        text3 = tk.Label(self, text = "I dette program kan du tegne og beregne grafer")
+        text3.config(font=("Courier", 10), bg = 'grey')
+        text3.pack(side = "top", fill = "x")
+        #---billed---
+        canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')
+        img = tk.PhotoImage(file = "Gui diff og integral/grafbilledlille.png")
+        canvas.create_image(125,50, image=img)
+        canvas.pack()
 
 class VisGraf(page):
     def __init__(self, *args, **kwargs):

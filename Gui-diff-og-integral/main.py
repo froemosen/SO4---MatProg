@@ -31,8 +31,8 @@ class MainMenu(page):
         text3.pack(side = "top", fill = "x")
         #---billed---
         os.path
-        try: self.image = tk.PhotoImage(file='Gui-diff-og-integral/aarhustechSmol.png')
-        except: self.image = tk.PhotoImage(file='aarhustechSmol.png')
+        self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png')))
+        #except: self.image = tk.PhotoImage(file='aarhustechSmol.png')
         button = tk.Label(self, image=self.image)
         button.pack(side = "bottom", anchor = "se", padx = 15, pady = 20)
         #canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')

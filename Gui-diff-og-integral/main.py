@@ -3,6 +3,7 @@ import mesam
 import matplotlib #graf plotter funktionaliteten
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk #importere toolbar til graf
 from matplotlib.figure import Figure #impotere grafen
+import os
 
 #Skelet for siderne.
 class page(tk.Frame):
@@ -29,6 +30,7 @@ class MainMenu(page):
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
         #---billed---
+        os.path
         try: self.image = tk.PhotoImage(file='Gui-diff-og-integral/aarhustechSmol.png')
         except: self.image = tk.PhotoImage(file='aarhustechSmol.png')
         button = tk.Label(self, image=self.image)

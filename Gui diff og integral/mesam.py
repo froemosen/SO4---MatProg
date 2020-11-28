@@ -6,51 +6,72 @@ from sympy import sin, cos, tan, pi
 import main
 def decode(ligningRaw):
     try:
-        ligningString = ""
-        prevTegn = ""
-        nextTegn = ""
-        nextNextTegn = ""
-        noInList = 0
-        cooldown = 0
-        ligningList = list(ligningRaw)
+        ligningString = "" #Output som decodes af sympy til sidst
+        prevTegn = "" #Tidligere tegn brugt i for loop
+        nextTegn = "" #Næste tegn i for loop
+        nextNextTegn = "" #Tegnet efter næste tegn i for loop
+        noInList = 0 #Bruges til at kunne finde tegn som kommer efter nuværende
+        cooldown = 0 #Bruges til cos, sin, tan og pi
+        ligningList = list(ligningRaw) #Liste med et tegn per plads, dannet ud fra inputtet
 
         for tegn in ligningList:
             try:
-                nextTegn = ligningList[noInList+1]
+                nextTegn = ligningList[noInList+1]   
+            except: #Hvis der ikke er flere tegn tilbage efterfølgende
+                pass 
+            try:
                 nextNextTegn = ligningList[noInList+2]
-            except:
+            except: #Hvis der ikke er to tegn tilbage
                 pass
             
             if cooldown == 0:           
-                if tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "sin":
+                if tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "sin": #Tjek om sinus bruges
                     tegn = "sin"
+                    if prevTegn == "*" or prevTegn == "" or prevTegn == "*" or prevTegn == "**" or prevTegn == "(" or prevTegn == "+" or prevTegn == "-" or prevTegn =="/":
+                        prevTegn = ""
+                    else:
+                        prevTegn = "*"
                     cooldown = 2
 
-                elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "cos":
+                elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "cos": #Tjek om cosinus bruges
                     tegn = "cos"
+                    if prevTegn == "*" or prevTegn == "" or prevTegn == "*" or prevTegn == "**" or prevTegn == "(" or prevTegn == "+" or prevTegn == "-" or prevTegn =="/":
+                        prevTegn = ""
+                    else:
+                        prevTegn = "*"
                     cooldown = 2
                 
-                elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "tan":
+                elif tegn.lower()+nextTegn.lower()+nextNextTegn.lower() == "tan": #Tjek om tangens bruges
                     tegn = "tan"
+                    if prevTegn == "*" or prevTegn == "" or prevTegn == "*" or prevTegn == "**" or prevTegn == "(" or prevTegn == "+" or prevTegn == "-" or prevTegn =="/":
+                        prevTegn = ""
+                    else:
+                        prevTegn = "*"
+
                     cooldown = 2
 
-                elif tegn.lower()+nextTegn.lower() == "pi":
+                elif tegn.lower()+nextTegn.lower() == "pi": #Tjek om pi bruges
                     tegn = "pi"
+                    if prevTegn == "*" or prevTegn == "" or prevTegn == "*" or prevTegn == "**" or prevTegn == "(" or prevTegn == "+" or prevTegn == "-" or prevTegn =="/":
+                        prevTegn = ""
+                    else:
+                        prevTegn = "*"
                     cooldown = 1
 
-                elif tegn == "^":
+                elif tegn == "^": #Tjek om noget opløftes med "^"
                     tegn = "**"
                     prevTegn = ""
                 
+                #Indsætter gangetegn hvis man skriver f.eks. 2x-3x -> 2*x-3*x
                 elif prevTegn != "*" and prevTegn != "**" and prevTegn != "" and prevTegn != "(" and prevTegn != "+" and prevTegn != "-" and prevTegn != "/" and tegn.isalpha():
                     prevTegn = "*"
                     tegn = "x"
                 
-                elif tegn.isalpha() and prevTegn == "" or prevTegn == "(":
+                elif tegn.isalpha() and prevTegn == "" or prevTegn == "(": #Lader være med at indsætte gangetegn i nogle tilfælde
                     tegn = "x"
                     prevTegn = ""
 
-                else:
+                else: #Tegnet tages med, men intet nyt tilføjes
                     prevTegn = ""
                 
                 ligningString += prevTegn
@@ -65,13 +86,11 @@ def decode(ligningRaw):
         print("Ligning før omdannelse: "+ligningString)
         ligningReady = sympy.sympify(ligningString)
         print("Ligningen i python-sprog: ", ligningReady)
-        return ligningReady
-        
+        return ligningReady    
 
     except:
-        return 0
-        pass #FJERN SENERE
-        #print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")   
+        pass
+        print("Kunne ikke fortolke ligningen. Prøv igen. (Hint: Brug muligvis standard python-sprog til at skrive ligningen ind)")   
 
 
 def printGraf(ligningReady, xakselen):

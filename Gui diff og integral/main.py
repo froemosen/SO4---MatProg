@@ -29,7 +29,8 @@ class MainMenu(page):
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
         #---billed---
-        self.image = tk.PhotoImage(file='Gui diff og integral/aarhustechSmol.png')
+        try: self.image = tk.PhotoImage(file='Gui diff og integral/aarhustechSmol.png')
+        except: self.image = tk.PhotoImage(file='aarhustechSmol.png')
         button = tk.Label(self, image=self.image)
         button.pack(side = "bottom", anchor = "se", padx = 15, pady = 20)
         #canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')

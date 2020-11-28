@@ -30,15 +30,14 @@ class MainMenu(page):
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
         #---billede---
-        self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png'))) #Håber du er tilfreds nu Mark heh
-        button = tk.Label(self, image=self.image)
-        button.pack(side = "bottom", anchor = "se", padx = 15, pady = 20)
-        #canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')
-        #img = tk.PhotoImage(file = "Gui diff og integral/grafbilledlille.png")
-        #canvas.create_image(125,50, image=img)
-        #canvas.pack()
-
-        #self.show()
+        try: self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png'))) #Fjern denne her, før aflevering
+        except: self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('aarhustechSmol.png')))#Håber du er tilfreds nu Mark heh
+        try: self.guide = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'guide.png')))
+        except: self.guide = tk.PhotoImage(file=os.path.normpath(os.path.join('guide.png')))
+        aarhustech = tk.Label(self, image=self.image)
+        guide = tk.Label(self, image=self.guide)
+        aarhustech.pack(side = "right", anchor = "se", padx = 15, pady = 20)
+        guide.pack(side = "left", anchor = "sw", padx = 70, pady = 10)
 
 class VisGraf(page):
     def __init__(self, *args, **kwargs):
@@ -74,8 +73,6 @@ class VisGraf(page):
 
 
     def updateGraph(self):
-            # (Grafen autoscaler)
-            #tangent = f.add_subplot(111)
             canvas = FigureCanvasTkAgg(self.f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
             canvas.draw() #Tegner grafen ud fra givet argumenter
             canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet
@@ -132,8 +129,6 @@ class Differencial(page):
         self.a = self.f.add_subplot(111)             #Bestemmer størelsen af grafen sammen med ovenstående linje
 
     def updateGraph(self):       
-        # (Grafen autoscaler)
-        #tangent = f.add_subplot(111)
         canvas = FigureCanvasTkAgg(self.f, self) #Give "FigureCanvasTkAgg" de argumenter den skal bruge, foreksempel størelse)
         canvas.draw() #Tegner grafen ud fra givet argumenter
         canvas.get_tk_widget().grid(row = 0, column = 1, rowspan = 100) #Smider det ind i vinduet

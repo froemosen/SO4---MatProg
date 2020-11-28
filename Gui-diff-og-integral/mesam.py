@@ -196,7 +196,6 @@ def integral(ligningReady, minX, maxX):
 
         print(currentA)
         if abs(currentA-prevA) < 10**(-3): #Tjek om areal er tilpas tæt på egentlige areal
-            areal = currentA
             break
 
         if i == 12: #Lader være med at cleare x- og y-værdierne hvis det er sidste gang funktionen køres. 

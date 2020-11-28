@@ -29,10 +29,8 @@ class MainMenu(page):
         text3 = tk.Label(self, text = "I dette program kan du tegne og regne på funktioner")
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
-        #---billed---
-        os.path
-        self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png')))
-        #except: self.image = tk.PhotoImage(file='aarhustechSmol.png')
+        #---billede---
+        self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png'))) #Håber du er tilfreds nu Mark heh
         button = tk.Label(self, image=self.image)
         button.pack(side = "bottom", anchor = "se", padx = 15, pady = 20)
         #canvas = tk.Canvas(self, width = 225, height = 100, bg = 'blue')

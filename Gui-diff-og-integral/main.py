@@ -30,10 +30,8 @@ class MainMenu(page):
         text3.config(font=("Courier", 10), bg = 'grey')
         text3.pack(side = "top", fill = "x")
         #---billede---
-        try: self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'aarhustechSmol.png'))) #Fjern denne her, før aflevering
-        except: self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('aarhustechSmol.png')))#Håber du er tilfreds nu Mark heh
-        try: self.guide = tk.PhotoImage(file=os.path.normpath(os.path.join('Gui-diff-og-integral', 'guide.png')))
-        except: self.guide = tk.PhotoImage(file=os.path.normpath(os.path.join('guide.png')))
+        self.image = tk.PhotoImage(file=os.path.normpath(os.path.join('aarhustechSmol.png')))#Håber du er tilfreds nu Mark heh
+        self.guide = tk.PhotoImage(file=os.path.normpath(os.path.join('guide.png')))
         aarhustech = tk.Label(self, image=self.image)
         guide = tk.Label(self, image=self.guide)
         aarhustech.pack(side = "right", anchor = "se", padx = 15, pady = 20)

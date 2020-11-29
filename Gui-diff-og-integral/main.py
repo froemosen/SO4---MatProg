@@ -332,7 +332,7 @@ class MainFrame(tk.Frame):
  
         #Laver vi kasser til selve knapperne.
         ButtonFrame = tk.Frame(self, bg = '#bcc8e8', borderwidth = 3, relief = 'raised')
-        Box = tk.Frame(self,)
+        Box = tk.Frame(self)
         ButtonFrame.pack(side = "left", fill = "both", expand= False)
         Box.pack(side = "left", fill = "both", expand= True)
 
